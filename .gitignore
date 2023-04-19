@@ -37,6 +37,8 @@
 /x86
 /ImageEditor/x64
 /ImageEditor/x86
+/ImageEditor/UtilLib/Errors
+/ImageEditor/UtilLib/Logs
 
 *.bak
 
