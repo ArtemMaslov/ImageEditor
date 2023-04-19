@@ -1,7 +1,7 @@
 CURRENT_DIR  := $(PROJECT_DIR)/ViewLib
 VIEW_LIB_DIR := $(PROJECT_DIR)/ViewLib
 
-#srcs_view_lib := SimpleWindow.cpp
+srcs_view_lib := SimpleWindow.cpp
 objs_view_lib := $(addprefix $(OBJ)/, $(srcs_view_lib:.cpp=.o))
 
 srcs += $(srcs_view_lib)
