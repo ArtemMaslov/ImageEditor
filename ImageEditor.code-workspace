@@ -1,0 +1,122 @@
+{
+	"folders":
+	[
+		{
+			"path": "ImageEditor",
+			"name": "ImageEditor"
+		},
+		{
+			"path": ".",
+			"name": "Settings"
+		}
+	],
+	"settings": 
+	{
+		"C_Cpp.default.includePath": 
+		[
+			"../../SFML-2.5.1-windows-vc15-64-bit/include/",
+			"../../SFML-2.5.1-linux-gcc-64-bit/include/",
+			"../ImageEditor/"
+		],
+
+		"files.associations": 
+		{
+			"makefile_compile": "makefile",
+			"makefile_settings": "makefile",
+			"makefile_utils": "makefile",
+			"array": "cpp",
+			"*.tcc": "cpp",
+			"cctype": "cpp",
+			"clocale": "cpp",
+			"cmath": "cpp",
+			"compare": "cpp",
+			"concepts": "cpp",
+			"cstdint": "cpp",
+			"cstdio": "cpp",
+			"cstdlib": "cpp",
+			"ctime": "cpp",
+			"cwchar": "cpp",
+			"cwctype": "cpp",
+			"deque": "cpp",
+			"map": "cpp",
+			"unordered_map": "cpp",
+			"vector": "cpp",
+			"exception": "cpp",
+			"functional": "cpp",
+			"initializer_list": "cpp",
+			"iosfwd": "cpp",
+			"limits": "cpp",
+			"new": "cpp",
+			"numbers": "cpp",
+			"ostream": "cpp",
+			"stdexcept": "cpp",
+			"streambuf": "cpp",
+			"string": "cpp",
+			"string_view": "cpp",
+			"system_error": "cpp",
+			"type_traits": "cpp",
+			"tuple": "cpp",
+			"typeinfo": "cpp",
+			"utility": "cpp",
+			"atomic": "cpp",
+			"chrono": "cpp",
+			"iostream": "cpp",
+			"istream": "cpp",
+			"ratio": "cpp",
+			"semaphore": "cpp",
+			"stop_token": "cpp",
+			"thread": "cpp",
+			"xstring": "cpp",
+			"algorithm": "cpp",
+			"bit": "cpp",
+			"charconv": "cpp",
+			"cstdarg": "cpp",
+			"cstddef": "cpp",
+			"cstring": "cpp",
+			"format": "cpp",
+			"forward_list": "cpp",
+			"iomanip": "cpp",
+			"ios": "cpp",
+			"iterator": "cpp",
+			"locale": "cpp",
+			"memory": "cpp",
+			"mutex": "cpp",
+			"optional": "cpp",
+			"sstream": "cpp",
+			"xfacet": "cpp",
+			"xiosbase": "cpp",
+			"xlocale": "cpp",
+			"xlocbuf": "cpp",
+			"xlocinfo": "cpp",
+			"xlocmes": "cpp",
+			"xlocmon": "cpp",
+			"xlocnum": "cpp",
+			"xloctime": "cpp",
+			"xmemory": "cpp",
+			"xstddef": "cpp",
+			"xtr1common": "cpp",
+			"xtree": "cpp",
+			"xutility": "cpp",
+			"condition_variable": "cpp",
+			"future": "cpp",
+			"list": "cpp",
+			"xhash": "cpp",
+			"memory_resource": "cpp",
+			"numeric": "cpp",
+			"random": "cpp",
+			"cinttypes": "cpp"
+		},
+		"workbench.colorCustomizations": 
+		{
+			"tree.indentGuidesStroke": "#A0A0A0"
+		},
+		"cSpell.words": 
+		[
+			"cdim",
+			"cint",
+			"cuint",
+			"Hashable",
+			"vect"
+		]
+	}
+}

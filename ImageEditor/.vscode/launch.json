@@ -1,0 +1,28 @@
+{
+    "version": "0.2.0",
+    "configurations": 
+    [
+        {
+            "name": "LaunchLinux",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceRoot}/../x64/Debug/ImageEditor",
+            "cwd": "${workspaceRoot}/../x64/Debug/",
+            "args": 
+            [
+            ],
+            "preLaunchTask": "BuildLinux"
+        },
+        {
+            "name": "LaunchWindows",
+            "type":  "cppvsdbg",
+            "request": "launch",
+            "program": "${workspaceRoot}/../x64/Debug/ImageEditor.exe",
+            "cwd": "${workspaceRoot}/../x64/Debug/",
+            "args": 
+            [
+            ],
+            "preLaunchTask": "BuildWindows"
+        }
+    ]
+}

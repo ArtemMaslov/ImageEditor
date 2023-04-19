@@ -1,0 +1,89 @@
+# x86 | x64
+PLATFORM     := x64
+# Debug | Release
+BUILD_MODE   := Debug
+PROJECT_NAME := ImageEditor
+TARGET_PATH   = $(BIN)/$(TARGET_NAME)
+COMP         := g++
+
+FLAGS  := -std=c++20 -O0 -DDEBUG -Wall -Werror -Wno-unused-function \
+          -Wno-unused-variable  \
+          -Wno-unused-but-set-variable \
+          -Wno-unused-private-field
+AFLAGS := -fsanitize=address -fsanitize=undefined
+
+INCLUDE_DIRS = -I./ -I$(SFML_PATH)/include
+DEFINES      = -D$(TARGET_OS) -DGCC
+
+COMP_FLAGS = $(FLAGS) -c -g $(INCLUDE_DIRS) $(DEFINES)
+LINK_FLAGS = -std=c++20 -g -L$(SFML_PATH)/lib -lsfml-graphics -lsfml-window -lsfml-system
+
+###############################################################################
+
+# Для разных версий Windows переменная среды OS всегда равна Windwos_NT
+ifeq ($(OS), Windows_NT)
+
+    TARGET_OS = WINDOWS
+    TARGET_NAME := $(PROJECT_NAME).exe
+    SHELL = cmd
+
+# В Windows ранее 10 версии цвета консоли не поддерживаются (надо ставить сторонние приложения).
+# Поэтому так как на машине автора Windows 8.1, то текст не будет цветным :(
+
+# Не объявленные переменные цвета по умолчанию имеют пустое значение.
+    SFML_PATH = ../../SFML-2.5.1-windows-vc15-64-bit
+
+    CMD_CREATE_DIR = md $(subst /,\\,$1)
+    CMD_DELETE_DIR = rmdir /S /Q $(subst /,\\,$1)
+    CMD_RUN_PROGRAM = cd $(BIN) && $(TARGET_NAME)
+
+    CMD_CLEAR_BIN = cd $(BIN) && del $(PROJECT_NAME).exe $(PROJECT_NAME).ilk $(PROJECT_NAME).pdb
+
+else # ($(OS), Windows_NT)
+    UNAME := $(shell uname)
+ifeq ($(UNAME), Linux)
+
+    TARGET_OS = LINUX
+    TARGET_NAME := $(PROJECT_NAME)
+
+    SFML_PATH = ../../SFML-2.5.1-linux-gcc-64-bit
+
+    CMD_CREATE_DIR = mkdir -p $1
+    CMD_DELETE_DIR = rm -r $1
+    CMD_RUN_PROGRAM = cd $(BIN) && ./$(TARGET_NAME)
+    
+    CMD_CLEAR_BIN = cd $(BIN) && rm ./$(PROJECT_NAME)
+
+    # Цвета консоли.
+
+    # Желтый цвет шрифта.
+    C_Y := \033[33m
+    # Красный цвет шрифта.
+    C_R := \033[31m
+    # Зеленый цвет шрифта.
+    C_G := \033[32m
+    # Розовый цвет шрифта.
+    C_M := \033[35m
+    # Установить цвета по умолчанию.
+    C_D := \033[0m
+    # Жирный цвет шрифта.
+    F_B := \033[1m
+    # Нормальный размер шрифта.
+    F_N := \033[22m
+
+else # ($(UNAME), Linux)
+
+    MSG := $(shell echo "$(C_R)Не удалось опеределить операционную систему, на которой выполняется сборка.$(C_D)")
+    $(error $(MSG))
+
+endif # !($(UNAME), Linux)
+endif # !($(OS), Windows_NT)
+
+###############################################################################
+
+BIN_PLATFORM_DIR = $(PROJECT_DIR)/../$(PLATFORM)
+OBJ_PLATFORM_DIR = $(PROJECT_DIR)/$(PLATFORM)
+DEPENDENCIES_DIR = $(PROJECT_DIR)/dpnd
+
+BIN = $(BIN_PLATFORM_DIR)/$(BUILD_MODE)
+OBJ = $(OBJ_PLATFORM_DIR)/$(BUILD_MODE)
