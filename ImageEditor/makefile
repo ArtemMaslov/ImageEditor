@@ -55,23 +55,6 @@ build: dir_obj dir_bin
 
 ###############################################################################
 
-view_test: dir_obj dir_bin
-	$(call msg_build, проекта)
-	@echo "Автоматически выбрана операционная система $(TARGET_OS)"
-
-	$(call msg_compile, проекта)
-	+$(call call_make, ./, compile)
-	$(call msg_compile_complete)
-
-	$(call msg_linking)
-
-	@$(COMP) -o $(TARGET_PATH) \
-		$(objs_modules) $(obj_view_unit_test) $(LINK_FLAGS)
-	
-	$(call msg_build_complete)
-
-###############################################################################
-
 .PHONY: compile build compile_root view_test
 
 .DEFAULT_GOAL = build

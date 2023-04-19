@@ -11,7 +11,7 @@ vpath %.cpp $(VIEW_LIB_DIR)
 include $(VIEW_LIB_DIR)/Graphics/makefile
 include $(VIEW_LIB_DIR)/Event/makefile
 #include $(VIEW_LIB_DIR)/ViewGroup/makefile
-#include $(VIEW_LIB_DIR)/View/makefile
+include $(VIEW_LIB_DIR)/View/makefile
 
 srcs_view_lib += $(srcs_graphics) $(srcs_views) $(srcs_events) $(srcs_view_groups)
 objs_view_lib += $(objs_graphics) $(objs_views) $(objs_events) $(objs_view_groups)
