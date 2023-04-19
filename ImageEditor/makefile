@@ -10,7 +10,7 @@ vpath %.o $(OBJ)
 
 srcs      := 
 
-#include $(PROJECT_DIR)/Application/makefile
+include $(PROJECT_DIR)/Application/makefile
 include $(PROJECT_DIR)/UtilLib/makefile
 include $(PROJECT_DIR)/ViewLib/makefile
 

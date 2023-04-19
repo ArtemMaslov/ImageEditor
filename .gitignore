@@ -39,6 +39,8 @@
 /ImageEditor/x86
 /ImageEditor/UtilLib/Errors
 /ImageEditor/UtilLib/Logs
+/ImageEditor/Images
+/ImageEditor/Liberation Sans
 
 *.bak
 
