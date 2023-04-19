@@ -8,7 +8,7 @@ srcs += $(srcs_view_lib)
 
 vpath %.cpp $(VIEW_LIB_DIR)
 
-#include $(VIEW_LIB_DIR)/Graphics/makefile
+include $(VIEW_LIB_DIR)/Graphics/makefile
 include $(VIEW_LIB_DIR)/Event/makefile
 #include $(VIEW_LIB_DIR)/ViewGroup/makefile
 #include $(VIEW_LIB_DIR)/View/makefile
