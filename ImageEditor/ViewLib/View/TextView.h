@@ -12,13 +12,13 @@ namespace ViewLib
     public:
         TextView();
 
+        TextView(SimpleWindow* const hostWindow);
+        
+		virtual ~TextView() = default;
+
         virtual SizeType OnMeasure(const MeasureStruct& meas) override;
 
 		virtual void OnDraw(IRenderTarget& target) override;
-
-    private:
-        template <Direction direction>
-        dim_t MeasureDirection(const MeasureStruct& meas);
 
     public:
         ViewLib::Text Text;

@@ -11,17 +11,24 @@ View* View::FocusedView = nullptr;
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
 
 View::View() :
+	HostWindow(nullptr)
+{
+}
+
+View::View(SimpleWindow* const hostWindow) :
 	BackgroundColor(),
 	Parent(nullptr),
+	HostWindow(hostWindow),
 	Canvas()
 {
 }
 
-void View::OnDraw(IRenderTarget& target)
+void View::Draw(IRenderTarget& target)
 {
-	if (Size.Hor == 0 || Size.Ver == 0)
-		return;
+	// Рисуем View.
+	OnDraw(target);
 
+	// После рисования View.
 	Color borderColor(220, 20, 20);
 	Canvas.DrawLine(CoordType(0, 0), CoordType(Size.Hor, 0), borderColor);
 	Canvas.DrawLine(CoordType(1, 0), CoordType(1, Size.Ver - 1), borderColor);
@@ -38,10 +45,27 @@ void View::OnLayout(const CoordType& coord)
 
 bool View::OnMouseEvent(const MouseEvent& event)
 {
+	static bool pressed = false;
 	if (!CheckInBounds(event.Pos))
 		return false;
 
-	CaptureFocus();
+	switch (event.Type)
+	{
+		case MouseEventType::LeftPressed:
+			pressed = true;
+			break;
+		case MouseEventType::LeftReleased:
+			if (pressed)
+			{
+				CaptureFocus();
+				pressed = false;
+			}
+			break;
+		default:
+			pressed = false;
+			break;
+	}
+	
 	return true;
 }
 

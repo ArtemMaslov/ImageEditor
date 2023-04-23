@@ -5,22 +5,31 @@ using ViewLib::ViewGroup;
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
 
-ViewGroup::ViewGroup() : View()
+ViewGroup::ViewGroup() :
+	View()
+{
+}
+
+ViewGroup::ViewGroup(SimpleWindow* const hostWindow) :
+	View(hostWindow)
 {
 }
 
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
 
-void ViewGroup::OnDraw(IRenderTarget& target)
+void ViewGroup::Draw(IRenderTarget& target)
 {
-	// Рисование детей.
+	// Рисуем ViewGroup.
+	View::Draw(target);
+	// Рисуем детей.
 	csize_t childrenCount = GetChildrenCount();
 	for (size_t st = 0; st < childrenCount; st++)
-		GetChild(st)->OnDraw(target);
-	
-	// Рисование ViewGroup.
-	View::OnDraw(target);
+		GetChild(st)->Draw(target);
+}
+
+void ViewGroup::OnDraw(IRenderTarget& target)
+{
 }
 
 bool ViewGroup::OnMouseEvent(const MouseEvent& event)

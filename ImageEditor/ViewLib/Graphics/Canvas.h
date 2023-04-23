@@ -22,6 +22,8 @@ namespace ViewLib
 	public:
 		CanvasType();
 
+		inline SizeType GetSize();
+
 		inline void SetSize(const SizeType& newSize);
 
 		void DrawLine(const CoordType& p1, const CoordType& p2, const Color& color);
@@ -57,6 +59,11 @@ namespace ViewLib
 
 namespace ViewLib
 {
+	inline SizeType CanvasType::GetSize()
+	{
+		return Size;
+	}
+
 	void CanvasType::SetSize(const SizeType& newSize)
 	{
 		Size = newSize;

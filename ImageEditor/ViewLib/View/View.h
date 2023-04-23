@@ -12,6 +12,7 @@
 #include "../Graphics/Drawable.h"
 #include "../Graphics/Canvas.h"
 
+#include "../SimpleWindow.h"
 #include "../General.h"
 #include "../Measure.h"
 
@@ -20,10 +21,19 @@
 
 namespace ViewLib
 {
+	class SimpleWindow;
+
 	class View
 	{
+		friend class ViewGroup;
+		friend class SimpleWindow;
+		
 	public:
 		View();
+
+		View(SimpleWindow* const hostWindow);
+
+		virtual ~View() = default;
 		
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
 
@@ -31,7 +41,13 @@ namespace ViewLib
 
 		virtual void OnLayout(const CoordType& coord);
 
-		virtual void OnDraw(IRenderTarget& target);
+	private:
+		// Системная функция начала рисования View.
+		virtual void Draw(IRenderTarget& target);
+		
+	public:
+		// Пользовательское рисование.
+		virtual void OnDraw(IRenderTarget& target) = 0;
 
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
 
@@ -61,8 +77,6 @@ namespace ViewLib
 		
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
 
-	protected:
-
 	public:
 		Color  BackgroundColor;
 
@@ -71,11 +85,13 @@ namespace ViewLib
 
 	protected:
 		View* Parent;
+		SimpleWindow* const HostWindow;
 
 		CanvasType Canvas;
 
 		// Абсолютные координаты.
 		CoordType Pos;
+
 	private:
 		SizeType Size;
 

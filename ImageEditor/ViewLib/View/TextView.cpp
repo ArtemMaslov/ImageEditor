@@ -10,40 +10,41 @@ TextView::TextView() :
 {
 }
 
+TextView::TextView(SimpleWindow* const hostWindow) :
+    View(hostWindow)
+{
+}
+
 SizeType TextView::OnMeasure(const MeasureStruct& meas)
 {
 	SizeType newSize = Text.MeasureSize();
-    size_t   textHeight = Text.GetLineHeight();
 
-    
+    switch (meas.Ver.Type)
+    {
+        case MeasureType::Exactly:
+            newSize.Ver = meas.Ver.Size;
+            break;
+        case MeasureType::LessThan:
+            newSize.Ver = std::min(newSize.Ver, meas.Ver.Size);
+            break;
+        case MeasureType::Infty:
+            break;
+    }
 
-    newSize.Hor = MeasureDirection<Direction::Horizontal>(meas);
-    newSize.Ver = MeasureDirection<Direction::Vertical>(meas);
+    switch (meas.Hor.Type)
+    {
+        case MeasureType::Exactly:
+            newSize.Hor = meas.Hor.Size;
+            break;
+        case MeasureType::LessThan:
+            newSize.Hor = std::min(newSize.Hor, meas.Hor.Size);
+            break;
+        case MeasureType::Infty:
+            break;
+    }
 
     SetSize(newSize);
 	return newSize;
-}
-
-template <Direction direction>
-dim_t TextView::MeasureDirection(const MeasureStruct& meas)
-{
-    switch (meas[direction].Type)
-    {
-        case MeasureType::Infty:
-        {
-            SizeType textSize = Text.MeasureSize();
-            return textSize[direction];
-        }
-        case MeasureType::LessThan:
-        {
-            SizeType textSize = Text.MeasureSize();
-            return std::min(textSize[direction], meas[direction].Size);
-        }
-        case MeasureType::Exactly:
-            return meas[direction].Size;
-    }
-
-    return 0;
 }
 
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
@@ -52,8 +53,6 @@ dim_t TextView::MeasureDirection(const MeasureStruct& meas)
 void TextView::OnDraw(IRenderTarget& target)
 {
     Canvas.Render(Text);
-
-    View::OnDraw(target);
 }
 
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///

@@ -32,20 +32,30 @@ namespace ViewLib
         static sf::Font sfFont;
     };
     
+///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
+    
     class Text : public IRender
     {
     public:
         Text();
 
-        inline void SetFont(const Font& font);
+///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
 
         inline size_t GetFontSize();
 
-        inline dim_t GetLineHeight();
-
         inline void SetFontSize(csize_t size);
 
+        inline void SetFont(const Font& font);
+
         inline void SetColor(const Color& color);
+        
+        inline dim_t GetLineHeight();
+        
+///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
+
+        inline size_t GetLinesCount();
+
+///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
 
         SizeType MeasureSize();
         
@@ -68,23 +78,11 @@ namespace ViewLib
 
 namespace ViewLib
 {
-    void Text::SetFont(const Font& font)
-    {
-        sfText.setFont(font.sfFont);
-        
-        LineHeight = font.sfFont.getLineSpacing(GetFontSize());
-    }
-
     size_t Text::GetFontSize()
     {
         return sfText.getCharacterSize();
     }
 
-    dim_t Text::GetLineHeight()
-    {
-        return LineHeight;
-    }
-    
     void Text::SetFontSize(csize_t size)
     {
         sfText.setCharacterSize(size);
@@ -94,9 +92,26 @@ namespace ViewLib
             LineHeight = fontPtr->getLineSpacing(GetFontSize());
     }
 
+    void Text::SetFont(const Font& font)
+    {
+        sfText.setFont(font.sfFont);
+        
+        LineHeight = font.sfFont.getLineSpacing(GetFontSize());
+    }
+
     void Text::SetColor(const Color& color)
     {
         sfText.setFillColor(color);
+    }
+    
+    dim_t Text::GetLineHeight()
+    {
+        return LineHeight;
+    }
+
+    size_t Text::GetLinesCount()
+    {
+        return std::count(Value.Begin(), Value.End(), '\n') + 1;
     }
 }
 

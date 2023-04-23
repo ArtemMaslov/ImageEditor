@@ -44,7 +44,7 @@ void SimpleWindow::LayoutChildren()
 void SimpleWindow::Render()
 {
 	Window.clear(sf::Color::White);
-	RootView->OnDraw(*this);
+	RootView->Draw(*this);
 	Window.display();
 }
 

@@ -17,6 +17,7 @@
 namespace ViewLib
 {
 	class IRender;
+	class View;
 
 	class SimpleWindow : public IRenderTarget
 	{

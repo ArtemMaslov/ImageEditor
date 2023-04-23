@@ -8,16 +8,14 @@ using namespace ViewLib;
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
 
 Button::Button() :
-    IMouseClick()
+    View()
 {
 }
 
-
-Button::Button(dim_t width, dim_t height, Color background) :
-    Button()
+Button::Button(SimpleWindow* const hostWindow) :
+    View(hostWindow),
+    IMouseClick()
 {
-    SetSize(SizeType(width, height));
-    BackgroundColor = background;
 }
 
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
@@ -64,8 +62,6 @@ dim_t Button::MeasureDirection(const MeasureStruct& meas)
 void Button::OnDraw(IRenderTarget& target)
 {
     Canvas.Render(Text);
-
-    View::OnDraw(target);
 }
 
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///

@@ -17,6 +17,18 @@ namespace ViewLib
     public:
         ImageView();
 
+        ImageView(SimpleWindow* const hostWindow);
+
+        ImageView(const ImageView& imageView);
+
+        ImageView(ImageView&& imageView);
+
+        void operator = (const ImageView&) = delete;
+
+        void operator = (ImageView&&) = delete;
+        
+		virtual ~ImageView() = default;
+
 		virtual SizeType OnMeasure(const MeasureStruct& meas) override;
 
 		virtual void OnDraw(IRenderTarget& target) override;

@@ -9,7 +9,14 @@ using namespace ViewLib;
 ///									  Конструкторы
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
 
-LinearLayout::LinearLayout(::Direction direction) :
+LinearLayout::LinearLayout() :
+	ViewGroup(),
+	Orientation(Direction::Vertical)
+{
+}
+
+LinearLayout::LinearLayout(SimpleWindow* const hostWindow, ::Direction direction) :
+	ViewGroup(hostWindow),
 	Orientation(direction)
 {
 }
@@ -22,7 +29,7 @@ SizeType LinearLayout::OnMeasure(const MeasureStruct& meas)
 {
 	assert(Orientation == Direction::Horizontal || Orientation == Direction::Vertical);
 
-	SizeType newSize = {100, 100};
+	SizeType newSize = {};
 
 	if (Orientation == Direction::Horizontal)
 		newSize = MeasureDirection<Direction::Horizontal>(meas);
@@ -147,7 +154,7 @@ void LinearLayout::RemoveAllChildren()
 	Childs.clear();
 }
 
-View* const LinearLayout::GetChild(csize_t index)
+View* LinearLayout::GetChild(csize_t index)
 {
 	return Childs.at(index);
 }

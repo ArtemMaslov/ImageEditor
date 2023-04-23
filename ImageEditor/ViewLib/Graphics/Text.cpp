@@ -49,10 +49,11 @@ SizeType Text::MeasureSize()
     // тексту, поэтому прибавляем размер полей с двух сторон.
     sf::FloatRect textRect = sfText.getLocalBounds();
     textRect.width  += textRect.left * 2;
-    textRect.left    = 0;
-    textRect.height += textRect.top * 2;
-    textRect.top     = 0;
-    //textRect.height = std::count(Value.)
+
+    size_t   textHeight    = GetLineHeight();
+    size_t   linesCount    = GetLinesCount();
+    dim_t    desiredHeight = linesCount * textHeight;
+    textRect.height = desiredHeight;
 
     return textRect;
 }
@@ -72,7 +73,7 @@ void Text::Render(sf::RenderTarget& target)
     textRect.height += textRect.top * 2;
     textRect.top     = 0;
     sf::RectangleShape* l1 = new sf::RectangleShape(sf::Vector2f(textRect.width, textRect.height));
-    l1->setFillColor(sf::Color(100, 40, 100));
+    l1->setFillColor(sf::Color(200, 160, 200));
     l1->setPosition(textRect.left, textRect.top);
     target.draw(*l1);
 

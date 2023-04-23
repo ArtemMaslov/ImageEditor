@@ -8,7 +8,27 @@ using namespace ViewLib;
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
 
 ImageView::ImageView() :
+    View()
+{
+}
+
+ImageView::ImageView(SimpleWindow* const hostWindow) :
+    View(hostWindow),
     IMouseClick()
+{
+}
+
+ImageView::ImageView(const ImageView& imageView) :
+    View(imageView.HostWindow),
+    IMouseClick(),
+    Image(imageView.Image)
+{
+}
+
+ImageView::ImageView(ImageView&& imageView) :
+    View(imageView.HostWindow),
+    IMouseClick(),
+    Image(std::move(imageView.Image))
 {
 }
 
@@ -56,8 +76,6 @@ dim_t ImageView::MeasureDirection(const MeasureStruct& meas)
 void ImageView::OnDraw(IRenderTarget& target)
 {
     Canvas.Render(Image);
-
-    View::OnDraw(target);
 }
 
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///

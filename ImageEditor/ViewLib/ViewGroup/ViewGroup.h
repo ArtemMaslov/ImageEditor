@@ -12,10 +12,19 @@ namespace ViewLib
 	public:
 		ViewGroup();
 
+		ViewGroup(SimpleWindow* const hostWindow);
+		
+		virtual ~ViewGroup() = default;
+
 		virtual void AddChild(View* const child) = 0;
 		
 		virtual void RemoveAllChildren() = 0;
 
+	private:
+		// Системная функция начала рисования View.
+		virtual void Draw(IRenderTarget& target) override final;
+
+	public:
 		virtual void OnDraw(IRenderTarget& target) override;
 		
 		virtual bool OnMouseEvent(const MouseEvent& event) override;
@@ -24,7 +33,7 @@ namespace ViewLib
 
 	protected:
 
-		virtual View* const GetChild(csize_t index) = 0;
+		virtual View* GetChild(csize_t index) = 0;
 
 		virtual size_t GetChildrenCount() const = 0;
 	};

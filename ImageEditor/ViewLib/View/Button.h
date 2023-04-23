@@ -17,7 +17,9 @@ namespace ViewLib
     public:
         Button();
 
-        Button(dim_t width, dim_t height, Color background);
+        Button(SimpleWindow* const hostWindow);
+        
+		virtual ~Button() = default;
 
 		virtual SizeType OnMeasure(const MeasureStruct& meas) override;
 

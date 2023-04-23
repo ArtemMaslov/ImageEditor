@@ -12,7 +12,11 @@ namespace ViewLib
 	class LinearLayout : public ViewGroup
 	{
 	public:
-		LinearLayout(Direction direction);
+		LinearLayout();
+
+		LinearLayout(SimpleWindow* const hostWindow, Direction direction);
+		
+		virtual ~LinearLayout() = default;
 
 		virtual void AddChild(View* const child) final;
 		
@@ -24,7 +28,7 @@ namespace ViewLib
 
 	protected:
 
-		virtual View* const GetChild(csize_t index) final;
+		virtual View* GetChild(csize_t index) final;
 
 		virtual size_t GetChildrenCount() const final;	
 
