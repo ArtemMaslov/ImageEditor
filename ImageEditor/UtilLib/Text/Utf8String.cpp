@@ -113,6 +113,23 @@ void Utf8String::EraseBack()
     Utf8SymCount--;
 }
 
+cptr Utf8String::GetRawData() const noexcept
+{
+    return Value.data();
+}
+
+int64_t Utf8String::ToInt()
+{
+    Utf8Iterator current = Begin();
+    Utf8Iterator end = End();
+    for (; current < end; current++)
+    {
+
+    }
+
+    return 0;
+}
+
 Utf8Iterator Utf8String::Begin()
 {
     return Utf8Iterator(Value.begin(), Value.end());
@@ -259,8 +276,18 @@ uint32_t Utf8Iterator::Decode(std::string::iterator symStart) const
 
 bool UtilLib::operator == (const Utf8Iterator& left, const Utf8Iterator& right)
 {
-    return left.CurrentSymbol == right.CurrentSymbol && 
-           left.EndSymbol == right.EndSymbol;
+    if (left.EndSymbol != right.EndSymbol)
+        throw new std::exception();
+
+    return left.CurrentSymbol == right.CurrentSymbol;
+}
+
+std::strong_ordering UtilLib::operator <=> (const Utf8Iterator& left, const Utf8Iterator& right)
+{
+    if (left.EndSymbol != right.EndSymbol)
+        throw new std::exception();
+
+    return left.CurrentSymbol <=> right.CurrentSymbol;
 }
 
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///

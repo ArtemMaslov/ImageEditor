@@ -38,6 +38,10 @@ namespace UtilLib
 
         void EraseBack();
 
+        cptr GetRawData() const noexcept;
+
+        int64_t ToInt();
+
         Utf8Iterator Begin();
 
         Utf8Iterator End();
@@ -57,6 +61,7 @@ namespace UtilLib
     {
         friend class Utf8String;
         friend bool operator == (const Utf8Iterator& left, const Utf8Iterator& right);
+        friend std::strong_ordering operator <=> (const Utf8Iterator& left, const Utf8Iterator& right);
         
     private:
         Utf8Iterator(std::string::iterator begin, std::string::iterator end);
@@ -95,15 +100,15 @@ namespace UtilLib
         std::string::iterator EndSymbol;
         static constexpr uint32_t Utf8InvalidChar = 0;
     };
-
+    
     bool operator == (const Utf8Iterator& left, const Utf8Iterator& right);
+    std::strong_ordering operator <=> (const Utf8Iterator& left, const Utf8Iterator& right);
 
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
 
     class Utf8Char
     {
         friend class Utf8Iterator;
-
     private:
         Utf8Char(uint32_t value);
 
