@@ -8,6 +8,43 @@ using namespace UtilLib;
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
 
+static_assert(std::bidirectional_iterator<Utf8Iterator>);
+
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wnarrowing"
+// Количество байт после первого.
+// -1 - не правильная последовательность.
+static const uint8_t Utf8TrailingBytesCount[256] =
+{
+    0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+    0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+    0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+    0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+    0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+    0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+    0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+    0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+   -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+   -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+   -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+   -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+    1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,
+    1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,
+    2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,
+    3,  3,  3,  3,  3,  3,  3,  3, -1, -1, -1, -1, -1, -1, -1, -1,
+};
+
+static const uint8_t Utf8TrailingBytesInvalid = -1;
+#pragma GCC diagnostic pop
+
+static const uint32_t Utf8DecodeOffset[4] =
+{
+    0x00000000, 0x00003080, 0x000E2080, 0x03C82080
+};
+
+///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
+///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
+
 Utf8String::Utf8String() :
     Value()
 {
@@ -52,46 +89,38 @@ void Utf8String::operator += (const std::string& utf8Str)
 
 void Utf8String::Erase(size_t index, size_t length)
 {
-    assert(length > 0);
     assert(index < Utf8SymCount);
     assert(index + length <= Utf8SymCount);
 
-    uint32_t errCode = 0;
-    auto iter = Value.begin();
-    auto end  = Value.end();
+    Utf8Iterator eraseStart = Begin();
+    eraseStart += index;
+    Utf8Iterator eraseEnd = eraseStart;
+    eraseEnd += length;
 
-    std::string::iterator eraseStart;
-    std::string::iterator eraseEnd;    
-
-    // Перемещаемся на позицию index.
-    for (size_t st = 0; st < index; st++)
-    {
-        sf::Utf8::decode(iter, end, errCode);
-        if (errCode == 0)
-            throw std::exception();
-    }
-    eraseStart = iter;
-
-    // Перемещаемся на позицию index + length.
-    for (size_t st = 0; st < length; st++)
-    {
-        sf::Utf8::decode(iter, end, errCode);
-        if (errCode == 0)
-            throw std::exception();
-    }
-    eraseEnd = iter;
-
-    Value.erase(eraseStart, eraseEnd);
+    Value.erase(eraseStart.CurrentSymbol, eraseEnd.CurrentSymbol);
     Utf8SymCount -= length;
 }
 
 void Utf8String::EraseBack()
 {
-    assert(Value.size() > 0);
-    auto lastSymStart = FindSymbolStart(Value.end());
+    if (Value.size() == 0)
+        return;
+    
+    Utf8Iterator end = End();
+    end.Previous();
 
-    Value.erase(lastSymStart, Value.end());
+    Value.erase(end.CurrentSymbol, end.EndSymbol);
     Utf8SymCount--;
+}
+
+Utf8Iterator Utf8String::Begin()
+{
+    return Utf8Iterator(Value.begin(), Value.end());
+}
+
+Utf8Iterator Utf8String::End()
+{
+    return Utf8Iterator(Value.end(), Value.end());
 }
 
 Utf8String::operator sf::String() const
@@ -102,6 +131,149 @@ Utf8String::operator sf::String() const
 bool UtilLib::operator == (const Utf8String& left, const Utf8String& right)
 {
     return left.Value == right.Value;
+}
+
+///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
+///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
+
+Utf8Iterator::Utf8Iterator(std::string::iterator begin, std::string::iterator end) :
+    CurrentSymbol(begin),
+    EndSymbol(end)
+{
+}
+
+Utf8Iterator::Utf8Iterator()
+{
+    assert(!"Check state");
+}
+
+Utf8Char Utf8Iterator::operator *() const
+{
+    uint32_t utf8Char = Decode(CurrentSymbol);
+    return Utf8Char(utf8Char);
+}
+
+Utf8Iterator& Utf8Iterator::operator ++()
+{
+    Next();
+    return *this;
+}
+
+Utf8Iterator Utf8Iterator::operator ++(int)
+{
+    Utf8Iterator current = *this;
+    Next();
+    return current;
+}
+
+Utf8Iterator& Utf8Iterator::operator --()
+{
+    Previous();
+    return *this;
+}
+
+Utf8Iterator Utf8Iterator::operator --(int)
+{
+    Utf8Iterator current = *this;
+    Previous();
+    return current;
+}
+
+Utf8Iterator& Utf8Iterator::operator += (csize_t utf8CharsCount)
+{
+    for (size_t st = 0; st < utf8CharsCount; st++)
+        Next();
+    return *this;
+}
+
+Utf8Iterator& Utf8Iterator::operator -= (csize_t utf8CharsCount)
+{
+    for (size_t st = 0; st < utf8CharsCount; st++)
+        Previous();
+    return *this;
+}
+
+void Utf8Iterator::Previous()
+{
+    for (size_t bytesCount = 0; bytesCount < 4; bytesCount++)
+    {
+        CurrentSymbol--;
+        uint8_t trailingBytes = Utf8TrailingBytesCount[static_cast<uint8_t>(*CurrentSymbol)];
+        if (trailingBytes != Utf8TrailingBytesInvalid && CurrentSymbol + trailingBytes < EndSymbol)
+            return; // Нашли верную последовательность байт, образующих utf8 символ.
+    }
+
+    // Поддерживается кодировка, содержащая только 4 байта.
+    throw std::exception();
+}
+
+void Utf8Iterator::Next()
+{
+    uint32_t result = 0;
+    uint8_t trailingBytes = Utf8TrailingBytesCount[static_cast<uint8_t>(*CurrentSymbol)];
+
+    if (trailingBytes == Utf8TrailingBytesInvalid || CurrentSymbol + trailingBytes >= EndSymbol)
+        throw std::exception();
+
+    CurrentSymbol += 1 + trailingBytes;
+}
+
+uint32_t Utf8Iterator::Decode(std::string::iterator symStart) const
+{
+    uint32_t result = 0;
+    uint8_t trailingBytes = Utf8TrailingBytesCount[static_cast<uint8_t>(*symStart)];
+
+    if (trailingBytes == Utf8TrailingBytesInvalid || symStart + trailingBytes >= EndSymbol)
+    {
+        // Не верная последовательность символов.
+        throw std::exception();
+    }
+
+    // Декодируем utf8 символ.
+    switch (trailingBytes)
+    {
+        case 4:
+            result += static_cast<uint8_t>(*symStart++); 
+            result <<= 6;
+            [[fallthrough]];
+        case 3:
+            result += static_cast<uint8_t>(*symStart++); 
+            result <<= 6;
+            [[fallthrough]];
+        case 2:
+            result += static_cast<uint8_t>(*symStart++); 
+            result <<= 6;
+            [[fallthrough]];
+        case 1:
+            result += static_cast<uint8_t>(*symStart++); 
+            result <<= 6;
+            [[fallthrough]];
+        case 0:
+            result += static_cast<uint8_t>(*symStart++);
+    }
+
+    result -= Utf8DecodeOffset[trailingBytes];
+
+    return result;
+}
+
+bool UtilLib::operator == (const Utf8Iterator& left, const Utf8Iterator& right)
+{
+    return left.CurrentSymbol == right.CurrentSymbol && 
+           left.EndSymbol == right.EndSymbol;
+}
+
+///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
+///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
+
+Utf8Char::Utf8Char(uint32_t value) :
+    Value(value)
+{
+}
+
+Utf8Char::operator uint32_t() const
+{
+    return Value;
 }
 
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///

@@ -14,6 +14,9 @@
 
 namespace UtilLib
 {
+    class Utf8Iterator;
+    class Utf8Char;
+
     class Utf8String
     {
         friend bool operator == (const Utf8String& left, const Utf8String& right);
@@ -35,12 +38,11 @@ namespace UtilLib
 
         void EraseBack();
 
-        operator sf::String() const;
+        Utf8Iterator Begin();
 
-    private:
-        // Найти начало символа
-        template <typename Iter>
-        Iter FindSymbolStart(Iter afterEndOfSym);
+        Utf8Iterator End();
+
+        operator sf::String() const;
 
     private:
         std::string Value;
@@ -49,12 +51,20 @@ namespace UtilLib
     
     bool operator == (const Utf8String& left, const Utf8String& right);
     
+///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
+
     class Utf8Iterator : std::bidirectional_iterator_tag
     {
+        friend class Utf8String;
+        friend bool operator == (const Utf8Iterator& left, const Utf8Iterator& right);
+        
+    private:
+        Utf8Iterator(std::string::iterator begin, std::string::iterator end);
+
     public:
         Utf8Iterator();
 
-        uint32_t operator *() const;
+        Utf8Char operator *() const;
 
         Utf8Iterator& operator ++();
         
@@ -64,37 +74,45 @@ namespace UtilLib
         
         Utf8Iterator operator --(int);
 
-        using difference_type = int;
-        using value_type = uint32_t;        
+        Utf8Iterator& operator += (csize_t utf8CharsCount);
+        
+        Utf8Iterator& operator -= (csize_t utf8CharsCount);
 
     private:
+        // Найти начало символа
+        void Previous();
 
+        uint32_t Decode(std::string::iterator symStart) const;
+
+        void Next();
+
+    public:
+        using difference_type = std::make_signed_t<size_t>;
+        using value_type = Utf8Char;
+
+    private:
+        std::string::iterator CurrentSymbol;
+        std::string::iterator EndSymbol;
+        static constexpr uint32_t Utf8InvalidChar = 0;
     };
 
     bool operator == (const Utf8Iterator& left, const Utf8Iterator& right);
 
-    static_assert(std::bidirectional_iterator<Utf8Iterator>);
-}
-
-///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
 
-namespace UtilLib
-{
-    template <typename Iter>
-    Iter Utf8String::FindSymbolStart(Iter afterEndOfSym)
+    class Utf8Char
     {
-        const char bitMask1 = 0b1000'0000;
-        const char bitMask2 = 0b0100'0000;
+        friend class Utf8Iterator;
 
-        afterEndOfSym--;
+    private:
+        Utf8Char(uint32_t value);
 
-        // Если 0b10xx_xxxx, то это не конец символа, сдвигаемся влево.
-        while ((*afterEndOfSym & bitMask1) == bitMask1 && (*afterEndOfSym & bitMask2) == 0)
-            afterEndOfSym--;
+    public:
+        operator uint32_t() const;
         
-        return afterEndOfSym;
-    }
+    private:
+        uint32_t Value = 0;
+    };
 }
 
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
