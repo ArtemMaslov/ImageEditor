@@ -5,8 +5,9 @@ using namespace ViewLib;
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
 
-CanvasView::CanvasView() :
-    View()
+CanvasView::CanvasView(SimpleWindow& hostWindow, ImageEditor::ToolsController& toolsController) :
+    View(&hostWindow),
+    ToolsController(toolsController)
 {
 }
 
@@ -50,7 +51,6 @@ dim_t CanvasView::MeasureDirection(const MeasureStruct& meas)
 
 void CanvasView::OnDraw(IRenderTarget& target)
 {
-    View::OnDraw(target);
 }
 
 bool CanvasView::OnMouseEvent(const MouseEvent& event)
@@ -69,43 +69,11 @@ bool CanvasView::OnMouseEvent(const MouseEvent& event)
         CoordType drawingPoint = event.Pos;
         drawingPoint -= Pos;
         
-        DrawWithTool(drawingPoint);
+        if (ToolsController.ActiveTool)
+            ToolsController.ActiveTool->Draw(Canvas, drawingPoint);
     }
 
     return true;
-}
-
-void CanvasView::DrawWithTool(CoordType& drawingPoint)
-{
-    switch (ActiveTool)
-    {
-        case ImageEditor::ToolType::Pencil:
-            Canvas.DrawCircle(CoordType(drawingPoint.Hor, drawingPoint.Ver), 5, Color(0, 0, 0));
-            break;
-
-        case ImageEditor::ToolType::Bucket:
-            Canvas.DrawRectangle(CoordType(0, 0), GetSize().Hor, GetSize().Ver, Color(0, 0, 0));
-            break;
-
-        case ImageEditor::ToolType::Eraser:
-            Canvas.DrawCircle(CoordType(drawingPoint.Hor, drawingPoint.Ver), 5, Color(255, 255, 255));
-            break;
-
-        case ImageEditor::ToolType::Text:
-            break;
-
-        case ImageEditor::ToolType::Rectangle:
-            Canvas.DrawRectangle(CoordType(drawingPoint.Hor, drawingPoint.Ver), 40, 30, Color(200, 60, 100));
-            break;
-
-        case ImageEditor::ToolType::Circle:
-            Canvas.DrawCircle(CoordType(drawingPoint.Hor, drawingPoint.Ver), 15, Color(40, 150, 70));
-            break;
-
-        default:
-            assert(!"Not implemented");
-            break;
-    }
 }
         
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///

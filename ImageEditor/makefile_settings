@@ -4,12 +4,12 @@ PLATFORM     := x64
 BUILD_MODE   := Debug
 PROJECT_NAME := ImageEditor
 TARGET_PATH   = $(BIN)/$(TARGET_NAME)
-COMP         := g++
-
-FLAGS  := -std=c++20 -O0 -DDEBUG -Wall -Werror -Wno-unused-function \
-          -Wno-unused-variable  \
+COMP         := clang++
+#-Werror
+FLAGS  := -std=c++20 -O0 -DDEBUG -Wall -Wextra  -Wno-unused-function \
+          -Wno-unused-variable \
           -Wno-unused-but-set-variable \
-          -Wno-unused-private-field
+          -Wno-unused-parameter
 AFLAGS := -fsanitize=address -fsanitize=undefined
 
 INCLUDE_DIRS = -I./ -I$(SFML_PATH)/include
@@ -19,6 +19,10 @@ COMP_FLAGS = $(FLAGS) -c -g $(INCLUDE_DIRS) $(DEFINES)
 LINK_FLAGS = -std=c++20 -g -L$(SFML_PATH)/lib -lsfml-graphics -lsfml-window -lsfml-system
 
 ###############################################################################
+
+ifeq ($(COMP), clang++)
+    FLAGS += -Wno-unused-private-field
+endif
 
 # Для разных версий Windows переменная среды OS всегда равна Windwos_NT
 ifeq ($(OS), Windows_NT)

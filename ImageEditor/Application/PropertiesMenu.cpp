@@ -1,3 +1,5 @@
+#include <cassert>
+
 #include "PropertiesMenu.h"
 
 #include "MainWindow.h"
@@ -7,22 +9,17 @@ using namespace ImageEditor;
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
 
-PropertiesMenu::PropertiesMenu(ImageEditor::MainWindow* const mainWindow) :
-    Layout(ViewLib::Direction::Vertical),
-    MainWindow(mainWindow),
-    PencilProperties(mainWindow->CanvasView)
+PropertiesMenu::PropertiesMenu(ImageEditor::MainWindow& mainWindow) :
+    Layout(&mainWindow.Window, ViewLib::Direction::Vertical),
+    MainWindow(mainWindow)
 {
 }
 
-void PropertiesMenu::InflatePencilLayout()
+void PropertiesMenu::InflateProperties()
 {
     Layout.RemoveAllChildren();
-    PencilProperties.InflateProperties(Layout);
-}
-
-void PropertiesMenu::ClearLayout()
-{
-    Layout.RemoveAllChildren();
+    if (MainWindow.ToolsController.ActiveProperties)
+        MainWindow.ToolsController.ActiveProperties->InflateProperties(Layout);
 }
 
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///

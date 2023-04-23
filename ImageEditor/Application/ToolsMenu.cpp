@@ -2,9 +2,9 @@
 
 #include <ViewLib/ViewGroup/LinearLayout.h>
 
-#include "ToolsMenu.h"
-
+#include "ToolsProperties/ToolsController.h"
 #include "MainWindow.h"
+#include "ToolsMenu.h"
 
 using namespace ImageEditor;
 
@@ -12,27 +12,19 @@ using namespace ImageEditor;
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
 
 ToolsMenu::ToolsMenu(ImageEditor::MainWindow* const mainWindow) :
-    Layout(ViewLib::Direction::Horizontal),
-    Tools(),
+    Layout(&mainWindow->Window, ViewLib::Direction::Horizontal),
+    ToolsIcons(ToolsCount, ViewLib::ImageView(&mainWindow->Window)),
     MainWindow(mainWindow)
 {
     for (size_t st = 0; st < ToolsCount; st++)
     {
-        Tools[st].Image.LoadFromFile(Images[st]);
-
-        Tools[st].OnMouseLeftClick += std::bind(&ToolsMenu::OnImageViewLeftClick, this, ToolTypes[st]);
-
-        Tools[st].Weight.Hor = 1;
-        Layout.AddChild(&Tools[st]);
+        ToolsIcons[st].Image.LoadFromFile(MainWindow->ToolsController.GetImagePath(ToolTypes[st]));
+        ToolsIcons[st].OnMouseLeftClick += std::bind(&ImageEditor::ToolsController::ActivateNewTool, &MainWindow->ToolsController, ToolTypes[st]);
+        ToolsIcons[st].Weight.Hor = 1;
+        Layout.AddChild(&ToolsIcons[st]);
     }
 
     Layout.SumWeight.Hor = ToolsCount;
-}
-
-void ToolsMenu::OnImageViewLeftClick(ToolType toolType)
-{
-    printf("Tool %zd is activated\n", static_cast<size_t>(toolType));
-    MainWindow->SetActiveTool(toolType);
 }
 
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///

@@ -2,28 +2,18 @@
 
 #include <ViewLib/View/View.h>
 
-///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
-///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
+#include "ToolsProperties/Tool.h"
+#include "ToolsProperties/ToolsController.h"
 
-namespace ImageEditor
-{
-    enum class ToolType
-    {
-        Pencil    = 0,
-        Bucket    = 1,
-        Eraser    = 2,
-        Text      = 3,
-        Rectangle = 4,
-        Circle    = 5
-    };
-}
+///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
+///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
 
 namespace ViewLib
 {
     class CanvasView : public View
     {
     public:
-        CanvasView();
+        CanvasView(SimpleWindow& hostWindow, ImageEditor::ToolsController& toolsController);
 
 		virtual SizeType OnMeasure(const MeasureStruct& meas) override;
 
@@ -37,11 +27,9 @@ namespace ViewLib
 
         void DrawWithTool(CoordType& drawingPoint);
 
-    public:
-        ImageEditor::ToolType ActiveTool;
-
     private:
         bool IsDrawing = false;
+        ImageEditor::ToolsController& ToolsController;
     };
 }
 

@@ -8,12 +8,13 @@ using namespace ImageEditor;
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
 
 MainWindow::MainWindow() : 
-	CanvasView(),
 	Window(1000, 800, "Редактор изображений"),
-	RootLayout(ViewLib::Direction::Vertical),
-	LayoutPropertiesCanvas(ViewLib::Direction::Horizontal),
-	ToolsMenu(this),
-	PropertiesMenu(this)
+	PropertiesMenu(*this),
+	ToolsController(*this),
+	CanvasView(Window, ToolsController),
+	RootLayout(&Window, ViewLib::Direction::Vertical),
+	LayoutPropertiesCanvas(&Window, ViewLib::Direction::Horizontal),
+	ToolsMenu(this)
 {
 	Window.SetRootView(&RootLayout);
 
@@ -31,11 +32,9 @@ MainWindow::MainWindow() :
 	PropertiesMenu.Layout.Weight.Hor = 5;
 	CanvasView.Weight.Hor = 15;
 
-	SetActiveTool(ToolType::Pencil);
+	ToolsController.ActivateNewTool(ToolType::Pencil);
 
-	// Уже измерили в SetActiveTool();
-	//Window.MeasureChildren();
-	//Window.LayoutChildren();
+	// Уже измерили ActivateNewTool();
 }
 
 void MainWindow::Run()
@@ -45,29 +44,6 @@ void MainWindow::Run()
 		Window.CheckEvents();
 		Window.Render();
 	}
-}
-
-ToolType MainWindow::GetActiveTool()
-{
-	return CanvasView.ActiveTool;
-}
-
-void MainWindow::SetActiveTool(ToolType newTool)
-{
-	CanvasView.ActiveTool = newTool;
-	switch (newTool)
-	{
-		case ToolType::Pencil:
-			PropertiesMenu.InflatePencilLayout();
-			break;
-		
-		default:
-			PropertiesMenu.ClearLayout();
-			break;
-	}
-	
-	Window.MeasureChildren();
-	Window.LayoutChildren();
 }
 
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///

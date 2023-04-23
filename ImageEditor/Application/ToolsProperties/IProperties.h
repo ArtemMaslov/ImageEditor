@@ -1,28 +1,24 @@
 #pragma once
 
 #include <ViewLib/ViewGroup/LinearLayout.h>
-#include "ToolsProperties/IProperties.h"
 
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
 
 namespace ImageEditor
 {
-    class MainWindow;
-    class PencilProperties;
-    
-    class PropertiesMenu
+    class IProperties
     {
     public:
-        PropertiesMenu(ImageEditor::MainWindow& mainWindow);
+        IProperties(ViewLib::SimpleWindow* const window);
 
-        void InflateProperties();
+        inline void InflateProperties(ViewLib::LinearLayout& parent)
+        {
+            parent.AddChild(&Layout);
+        }
 
-    public:
+    protected:
         ViewLib::LinearLayout Layout;
-
-    private:
-        ImageEditor::MainWindow& MainWindow;
     };
 }
 

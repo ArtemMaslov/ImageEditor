@@ -1,26 +1,26 @@
 #pragma once
 
-#include <ViewLib/ViewGroup/LinearLayout.h>
 #include <ViewLib/View/EditText.h>
 
-#include "../CanvasView.h"
+#include "IProperties.h"
 
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
 
 namespace ImageEditor
 {
-    class PencilProperties
+    class MainWindow;
+
+    class PencilProperties : public IProperties
     {
     public:
-        PencilProperties(ViewLib::CanvasView& canvasView);
-
-        void InflateProperties(ViewLib::LinearLayout& parent);
+        PencilProperties(ImageEditor::MainWindow& mainWindow);
 
     private:
-        ViewLib::CanvasView& CanvasView;
+        void RadiusChanged();
 
-        ViewLib::LinearLayout Layout;
+    private:
+        ImageEditor::MainWindow& MainWindow;
 
         ViewLib::TextView EnterRadius;
         ViewLib::EditText Radius;

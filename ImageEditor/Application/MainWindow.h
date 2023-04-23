@@ -2,6 +2,7 @@
 
 #include <ViewLib/SimpleWindow.h>
 
+#include "ToolsProperties/ToolsController.h"
 #include "CanvasView.h"
 #include "ToolsMenu.h"
 #include "PropertiesMenu.h"
@@ -11,6 +12,8 @@
 
 namespace ImageEditor
 {
+	class ToolsController;
+
 	class MainWindow
 	{
 	public:
@@ -18,22 +21,21 @@ namespace ImageEditor
 
 		void Run();
 
-		ToolType GetActiveTool();
-
-		void SetActiveTool(ToolType newTool);
-
 	public:
+		ViewLib::SimpleWindow Window;
+
+		ImageEditor::PropertiesMenu PropertiesMenu;
+
+		ImageEditor::ToolsController ToolsController;
+		
 		ViewLib::CanvasView CanvasView;
 
 	private:
-		ViewLib::SimpleWindow Window;
-
 		ViewLib::LinearLayout RootLayout;
 		/// Содержит меню настроек и CanvasView.
 		ViewLib::LinearLayout LayoutPropertiesCanvas;
 		
 		ImageEditor::ToolsMenu ToolsMenu;
-		ImageEditor::PropertiesMenu PropertiesMenu;
 	};
 }
 
