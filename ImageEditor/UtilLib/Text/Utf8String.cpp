@@ -62,6 +62,15 @@ Utf8String::Utf8String(const std::string& utf8Str) :
 {
 }
 
+Utf8String::Utf8String(std::string&& utf8Str) :
+    Value(std::move(utf8Str)),
+    Utf8SymCount(sf::Utf8::count(Value.begin(), Value.end()))
+{
+}
+
+///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
+///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
+
 void Utf8String::operator += (cptr utf8Str)
 {
     size_t size1 = Value.size();
@@ -118,17 +127,51 @@ cptr Utf8String::GetRawData() const noexcept
     return Value.data();
 }
 
-int64_t Utf8String::ToInt()
+///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
+///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
+
+Utf8String::ConversionError Utf8String::ToInt(int64_t& result)
 {
+    result = 0;
+
+    // Если в числе был встречен знак. Для проверки, что введён только один знак.
+    bool sign = false;
+    // Отрицательное число.
+    bool negative = false;
+
     Utf8Iterator current = Begin();
     Utf8Iterator end = End();
     for (; current < end; current++)
     {
+        if (!((*current >= '0' && *current <= '9') || *current == '-' || *current == '+'))
+            return ConversionError::NotAllowedChar;
 
+        if (*current == '-' || *current == '+')
+        {
+            // В числе может быть только один знак.
+            if (sign == true)
+                return ConversionError::DoubleSign;
+
+            if (*current == '-')
+                negative = true;
+            sign = true;
+        }
+
+        int64_t newResult = 10 * result + (*current - '0');
+        if (newResult < result)
+            return ConversionError::Overflow;
+        
+        result = newResult;
     }
 
-    return 0;
+    if (negative)
+        result *= -1;
+
+    return ConversionError::NoErrors;
 }
+
+///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
+///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
 
 Utf8Iterator Utf8String::Begin()
 {

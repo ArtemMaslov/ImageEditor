@@ -27,6 +27,10 @@ namespace UtilLib
         Utf8String(cptr utf8Str);
 
         Utf8String(const std::string& utf8Str);
+
+        Utf8String(std::string&& utf8Str);
+        
+///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
         
         void operator += (cptr utf8Sym);
 
@@ -39,14 +43,36 @@ namespace UtilLib
         void EraseBack();
 
         cptr GetRawData() const noexcept;
+        
+///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
 
-        int64_t ToInt();
+        enum class ConversionError
+        {
+            // Нет ошибок.
+            NoErrors,
+            // Найден не правильный символ.
+            NotAllowedChar,
+            // Знак числа указан несколько раз.
+            DoubleSign,
+            // Несколько раз встречен символ разделения целой и дробной частей ',' или '.'.
+            DoubleSeparator,
+            // Число слишком большое, переполнение.
+            Overflow,
+        };
+
+        ConversionError ToInt(int64_t& result);
+
+///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
 
         Utf8Iterator Begin();
 
         Utf8Iterator End();
+        
+///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
 
         operator sf::String() const;
+        
+///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
 
     private:
         std::string Value;
@@ -55,6 +81,7 @@ namespace UtilLib
     
     bool operator == (const Utf8String& left, const Utf8String& right);
     
+///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
 
     class Utf8Iterator : std::bidirectional_iterator_tag
@@ -104,6 +131,7 @@ namespace UtilLib
     bool operator == (const Utf8Iterator& left, const Utf8Iterator& right);
     std::strong_ordering operator <=> (const Utf8Iterator& left, const Utf8Iterator& right);
 
+///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
 
     class Utf8Char
