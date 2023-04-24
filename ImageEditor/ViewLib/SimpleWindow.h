@@ -37,6 +37,8 @@ namespace ViewLib
 		inline bool IsOpen() const noexcept;
 
 		inline void SetRootView(View* const view) noexcept;
+
+		inline const sf::RenderWindow& GetWindow() const noexcept;
 		
 	public:
 		EventHolder  OnWindowClose;
@@ -54,14 +56,19 @@ namespace ViewLib
 
 namespace ViewLib
 {
+	bool SimpleWindow::IsOpen() const noexcept
+	{
+		return Window.isOpen();
+	}
+
 	void SimpleWindow::SetRootView(View* const view) noexcept
 	{
 		RootView = view;
 	}
 	
-	bool SimpleWindow::IsOpen() const noexcept
+	const sf::RenderWindow& SimpleWindow::GetWindow() const noexcept
 	{
-		return Window.isOpen();
+		return Window;
 	}
 }
 

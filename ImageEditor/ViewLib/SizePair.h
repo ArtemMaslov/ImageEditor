@@ -16,6 +16,8 @@ namespace ViewLib
 		inline SizePair(const sf::FloatRect& rect) noexcept;
 		
 		inline SizePair(const sf::Vector2u& vect) noexcept;
+
+		inline SizePair(const sf::Vector2i& vect) noexcept;
 		
 		inline SizePair(const sf::Vector2f& vect) noexcept;
 
@@ -62,6 +64,12 @@ namespace ViewLib
 	}
 	
 	SizePair::SizePair(const sf::Vector2u& vect) noexcept
+	{
+		Hor = vect.x;
+		Ver = vect.y;
+	}
+
+	SizePair::SizePair(const sf::Vector2i& vect) noexcept
 	{
 		Hor = vect.x;
 		Ver = vect.y;

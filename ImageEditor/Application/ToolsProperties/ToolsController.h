@@ -3,7 +3,8 @@
 #include <UtilLib/General.h>
 
 #include "Tool.h"
-#include "PencilProperties.h"
+#include "SplineToolProperties.h"
+#include "BucketProperties.h"
 
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
@@ -14,6 +15,7 @@ namespace ImageEditor
 
     class ToolsController
     {
+        friend class SplineToolProperties;
     public:
         ToolsController(ImageEditor::MainWindow& mainWindow);
 
@@ -68,8 +70,14 @@ namespace ImageEditor
 
         ImageEditor::MainWindow& MainWindow;
 
-        ImageEditor::Pencil Pencil;
-        ImageEditor::PencilProperties PencilProperties;
+        ImageEditor::SplineTool Pencil;
+        ImageEditor::SplineToolProperties PencilProperties;
+
+        ImageEditor::SplineTool Eraser;
+        ImageEditor::SplineToolProperties EraserProperties;
+
+        ImageEditor::Bucket Bucket;
+        ImageEditor::BucketProperties BucketProperties;
     };
 }
 

@@ -104,7 +104,13 @@
 			"memory_resource": "cpp",
 			"numeric": "cpp",
 			"random": "cpp",
-			"cinttypes": "cpp"
+			"cinttypes": "cpp",
+			"fstream": "cpp",
+			"queue": "cpp",
+			"ranges": "cpp",
+			"span": "cpp",
+			"coroutine": "cpp",
+			"resumable": "cpp"
 		},
 		"workbench.colorCustomizations": 
 		{

@@ -1,7 +1,7 @@
 CURRENT_DIR     := $(PROJECT_DIR)/Application
 APPLICATION_DIR := $(CURRENT_DIR)
 
-srcs_application = MainWindow.cpp main.cpp MainMenu.cpp ToolsMenu.cpp CanvasView.cpp PropertiesMenu.cpp
+srcs_application = main.cpp MainWindow.cpp MainMenu.cpp ToolsMenu.cpp PropertiesMenu.cpp CanvasView.cpp ColorPicker.cpp
 
 vpath %.cpp $(CURRENT_DIR)
 

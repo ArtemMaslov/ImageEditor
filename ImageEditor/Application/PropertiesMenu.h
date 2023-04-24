@@ -9,7 +9,7 @@
 namespace ImageEditor
 {
     class MainWindow;
-    class PencilProperties;
+    class SplineToolProperties;
     
     class PropertiesMenu
     {

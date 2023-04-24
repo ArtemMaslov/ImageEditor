@@ -9,8 +9,12 @@ using namespace ImageEditor;
 
 ToolsController::ToolsController(ImageEditor::MainWindow& mainWindow) :
     MainWindow(mainWindow),
-    Pencil(),
-    PencilProperties(mainWindow)
+    Pencil(10, ViewLib::Color{0, 0, 0}),
+    PencilProperties(mainWindow, Pencil, "Карандаш"),
+    Eraser(50, ViewLib::Color{255, 255, 255}),
+    EraserProperties(mainWindow, Eraser, "Ластик"),
+    Bucket(ViewLib::Color{255, 255, 255}),
+    BucketProperties(mainWindow, Bucket)
 {
 }
 
@@ -19,14 +23,18 @@ void ToolsController::ActivateNewTool(ToolType newTool)
     switch (newTool)
     {
         case ToolType::Pencil:
-            ActiveTool = &Pencil;
+            ActiveTool       = &Pencil;
             ActiveProperties = &PencilProperties;
             break;
             
         case ToolType::Eraser:
+            ActiveTool       = &Eraser;
+            ActiveProperties = &EraserProperties;
             break;
             
         case ToolType::Bucket:
+            ActiveTool       = &Bucket;
+            ActiveProperties = &BucketProperties;
             break;
             
         case ToolType::Text:

@@ -18,9 +18,9 @@ SizeType CanvasView::OnMeasure(const MeasureStruct& meas)
 {
     SizeType newSize = {};
 
-    newSize.Hor  = MeasureDirection<Direction::Horizontal>(meas);
+    newSize.Hor = MeasureDirection<Direction::Horizontal>(meas);
     newSize.Ver = MeasureDirection<Direction::Vertical>(meas);
-
+    
     SetSize(newSize);
     return newSize;
 }
@@ -72,7 +72,7 @@ bool CanvasView::OnMouseEvent(const MouseEvent& event)
         if (ToolsController.ActiveTool)
             ToolsController.ActiveTool->Draw(Canvas, drawingPoint);
     }
-
+    
     return true;
 }
         

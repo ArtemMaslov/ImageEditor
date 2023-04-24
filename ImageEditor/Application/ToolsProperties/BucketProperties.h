@@ -2,6 +2,9 @@
 
 #include <ViewLib/View/EditText.h>
 
+#include "../ColorPicker.h"
+
+#include "Tool.h"
 #include "IProperties.h"
 
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
@@ -11,28 +14,19 @@ namespace ImageEditor
 {
     class MainWindow;
 
-    class PencilProperties : public IProperties
+    class BucketProperties : public IProperties
     {
     public:
-        PencilProperties(ImageEditor::MainWindow& mainWindow);
+        BucketProperties(ImageEditor::MainWindow& mainWindow, ImageEditor::Bucket& tool);
 
-    private:
-        void RadiusChanged();
+        void ColorChanged(ViewLib::EditText& colorEditText, ViewLib::Color::Index colorIndex);
 
     private:
         ImageEditor::MainWindow& MainWindow;
-
-        ViewLib::TextView EnterRadius;
-        ViewLib::EditText Radius;
-
-        ViewLib::TextView EnterColor;
-
-        ViewLib::TextView EnterRed;
-        ViewLib::EditText Red;
-        ViewLib::TextView EnterGreen;
-        ViewLib::EditText Green;
-        ViewLib::TextView EnterBlue;
-        ViewLib::EditText Blue;
+        ImageEditor::Bucket& Tool;
+        
+        ViewLib::TextView TextViewToolName;
+        ViewLib::ColorPicker ColorPicker;
     };
 }
 

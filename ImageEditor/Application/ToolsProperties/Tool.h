@@ -40,27 +40,23 @@ namespace ImageEditor
         virtual void Draw(ViewLib::CanvasType& canvas, ViewLib::CoordType& point) = 0;
     };
 
-    class Pencil : public ITool
+    // Карандаш или ластик
+    class SplineTool : public ITool
     {
     public:
+        SplineTool(size_t defaultRadius, const ViewLib::Color& defaultColor);
+
         void Draw(ViewLib::CanvasType& canvas, ViewLib::CoordType& point) override;
 
-        size_t Radius = 5;
-        ViewLib::Color Color = {0, 0, 0};
-    };
-    
-    class Eraser : public ITool
-    {
-    public:
-        void Draw(ViewLib::CanvasType& canvas, ViewLib::CoordType& point) override;
-
-        size_t Radius = 40;
-        ViewLib::Color Color = {255, 255, 255};
+        size_t         Radius;
+        ViewLib::Color Color;
     };
     
     class Bucket : public ITool
     {
     public:
+        Bucket(const ViewLib::Color& defaultColor);
+
         void Draw(ViewLib::CanvasType& canvas, ViewLib::CoordType& point) override;
 
         ViewLib::Color Color;
@@ -69,28 +65,33 @@ namespace ImageEditor
     class Text : public ITool
     {
     public:
+        Text(cptr defaultValue, const ViewLib::Color& defaultColor);
+
         void Draw(ViewLib::CanvasType& canvas, ViewLib::CoordType& point) override;
 
         UtilLib::Utf8String Value;
-        ViewLib::Color Color;
+        ViewLib::Color      Color;
     };
     
     class Rectangle : public ITool
     {
     public:
+        Rectangle(const ViewLib::SizeType& defaultSize, const ViewLib::Color& defaultColor);
+
         void Draw(ViewLib::CanvasType& canvas, ViewLib::CoordType& point) override;
 
-        ViewLib::CoordType LeftTop;
-        ViewLib::SizeType  Size;
-        ViewLib::Color Color;
+        ViewLib::SizeType Size;
+        ViewLib::Color    Color;
     };
     
     class Circle : public ITool
     {
     public:
+        Circle(size_t defaultRadius, const ViewLib::Color& defaultColor);
+
         void Draw(ViewLib::CanvasType& canvas, ViewLib::CoordType& point) override;
 
-        size_t Radius = 0;
+        size_t         Radius;
         ViewLib::Color Color;
     };
 }

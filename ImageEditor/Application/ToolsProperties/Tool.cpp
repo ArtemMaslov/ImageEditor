@@ -5,12 +5,36 @@ using namespace ImageEditor;
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
 
-void Pencil::Draw(ViewLib::CanvasType& canvas, ViewLib::CoordType& point)
+SplineTool::SplineTool(size_t defaultRadius, const ViewLib::Color& defaultColor) :
+    Radius(defaultRadius),
+    Color(defaultColor)
 {
-    canvas.DrawCircle(point, Radius, Color);
 }
 
-void Eraser::Draw(ViewLib::CanvasType& canvas, ViewLib::CoordType& point)
+Bucket::Bucket(const ViewLib::Color& defaultColor) :
+    Color(defaultColor)
+{
+}
+
+Text::Text(cptr defaultValue, const ViewLib::Color& defaultColor) :
+    Value(defaultValue),
+    Color(defaultColor)
+{
+}
+
+Rectangle::Rectangle(const ViewLib::SizeType& defaultSize, const ViewLib::Color& defaultColor) :
+    Size(defaultSize),
+    Color(defaultColor)
+{
+}
+
+Circle::Circle(size_t defaultRadius, const ViewLib::Color& defaultColor) :
+    Radius(defaultRadius),
+    Color(defaultColor)
+{
+}
+
+void SplineTool::Draw(ViewLib::CanvasType& canvas, ViewLib::CoordType& point)
 {
     canvas.DrawCircle(point, Radius, Color);
 }
