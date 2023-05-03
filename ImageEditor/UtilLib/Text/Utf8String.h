@@ -42,7 +42,7 @@ namespace UtilLib
 
         void EraseBack();
 
-        cptr GetRawData() const noexcept;
+        const char* GetRawData() const noexcept;
         
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
 

@@ -65,12 +65,12 @@ namespace ImageEditor
     class Text : public ITool
     {
     public:
-        Text(cptr defaultValue, const ViewLib::Color& defaultColor);
+        Text(const ViewLib::Color& defaultColor);
 
         void Draw(ViewLib::CanvasType& canvas, ViewLib::CoordType& point) override;
 
-        UtilLib::Utf8String Value;
-        ViewLib::Color      Color;
+        ViewLib::Text  Value;
+        ViewLib::Color Color;
     };
     
     class Rectangle : public ITool

@@ -16,8 +16,7 @@ Bucket::Bucket(const ViewLib::Color& defaultColor) :
 {
 }
 
-Text::Text(cptr defaultValue, const ViewLib::Color& defaultColor) :
-    Value(defaultValue),
+Text::Text(const ViewLib::Color& defaultColor) :
     Color(defaultColor)
 {
 }
@@ -46,7 +45,9 @@ void Bucket::Draw(ViewLib::CanvasType& canvas, ViewLib::CoordType& point)
 
 void Text::Draw(ViewLib::CanvasType& canvas, ViewLib::CoordType& point)
 {
-
+    Value.SetPosition(point);
+    Value.SetColor(Color);
+    canvas.Render(Value);
 }
 
 void Rectangle::Draw(ViewLib::CanvasType& canvas, ViewLib::CoordType& point)

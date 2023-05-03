@@ -5,6 +5,9 @@
 #include "Tool.h"
 #include "SplineToolProperties.h"
 #include "BucketProperties.h"
+#include "TextProperties.h"
+#include "RectangleProperties.h"
+#include "CircleProperties.h"
 
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
@@ -21,7 +24,7 @@ namespace ImageEditor
 
         void ActivateNewTool(ToolType newTool);
 
-        constexpr cptr GetImagePath(ToolType toolType);
+        constexpr const char* GetImagePath(ToolType toolType);
 
         ITool* ActiveTool;
         IProperties* ActiveProperties;
@@ -78,6 +81,15 @@ namespace ImageEditor
 
         ImageEditor::Bucket Bucket;
         ImageEditor::BucketProperties BucketProperties;
+        
+        ImageEditor::Text Text;
+        ImageEditor::TextProperties TextProperties;
+
+        ImageEditor::Rectangle Rectangle;
+        ImageEditor::RectangleProperties RectangleProperties;
+
+        ImageEditor::Circle Circle;
+        ImageEditor::CircleProperties CircleProperties;
     };
 }
 
@@ -86,7 +98,7 @@ namespace ImageEditor
 
 namespace ImageEditor
 {
-    constexpr cptr ToolsController::GetImagePath(ToolType toolType)
+    constexpr const char* ToolsController::GetImagePath(ToolType toolType)
     {
         for (size_t st = 0; st < ToolsCount; st++)
         {

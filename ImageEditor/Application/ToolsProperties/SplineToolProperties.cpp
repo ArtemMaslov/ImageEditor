@@ -4,7 +4,6 @@
 #include "../MainWindow.h"
 
 using namespace ImageEditor;
-using UtilLib::Utf8String;
 using ConversionError = UtilLib::Utf8String::ConversionError;
 
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
@@ -36,7 +35,7 @@ SplineToolProperties::SplineToolProperties(ImageEditor::MainWindow& mainWindow, 
 void SplineToolProperties::RadiusChanged()
 {
     int64_t newRadius = 0;
-    if (EditTextRadius.Text.Value.ToInt(newRadius) == ConversionError::NoErrors)
+    if (EditTextRadius.Text.Value.ToInt(newRadius) == ConversionError::NoErrors && newRadius > 0)
         Tool.Radius = newRadius;
 }
 

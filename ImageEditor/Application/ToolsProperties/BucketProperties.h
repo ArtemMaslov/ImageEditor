@@ -19,8 +19,6 @@ namespace ImageEditor
     public:
         BucketProperties(ImageEditor::MainWindow& mainWindow, ImageEditor::Bucket& tool);
 
-        void ColorChanged(ViewLib::EditText& colorEditText, ViewLib::Color::Index colorIndex);
-
     private:
         ImageEditor::MainWindow& MainWindow;
         ImageEditor::Bucket& Tool;

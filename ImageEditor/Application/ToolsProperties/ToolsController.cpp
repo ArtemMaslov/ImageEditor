@@ -14,7 +14,13 @@ ToolsController::ToolsController(ImageEditor::MainWindow& mainWindow) :
     Eraser(50, ViewLib::Color{255, 255, 255}),
     EraserProperties(mainWindow, Eraser, "Ластик"),
     Bucket(ViewLib::Color{255, 255, 255}),
-    BucketProperties(mainWindow, Bucket)
+    BucketProperties(mainWindow, Bucket),
+    Text(ViewLib::Color{40, 40, 40}),
+    TextProperties(mainWindow, Text),
+    Rectangle(ViewLib::SizeType(40, 30), ViewLib::Color{200, 40, 40}),
+    RectangleProperties(mainWindow, Rectangle),
+    Circle(20, ViewLib::Color{40, 200, 40}),
+    CircleProperties(mainWindow, Circle)
 {
 }
 
@@ -38,14 +44,18 @@ void ToolsController::ActivateNewTool(ToolType newTool)
             break;
             
         case ToolType::Text:
-            ActiveTool = nullptr;
-            ActiveProperties = nullptr;
+            ActiveTool       = &Text;
+            ActiveProperties = &TextProperties;
             break;
             
         case ToolType::Rectangle:
+            ActiveTool       = &Rectangle;
+            ActiveProperties = &RectangleProperties;
             break;
             
         case ToolType::Circle:
+            ActiveTool       = &Circle;
+            ActiveProperties = &CircleProperties;
             break;
     
         default:

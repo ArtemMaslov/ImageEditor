@@ -32,6 +32,8 @@ namespace ViewLib
         static sf::Font sfFont;
     };
     
+
+
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
     
     class Text : public IRender
@@ -45,11 +47,14 @@ namespace ViewLib
 
         inline void SetFontSize(csize_t size);
 
+        inline CoordType GetPosition();
+
+        inline void SetPosition(const CoordType& position);
+
         inline void SetFont(const Font& font);
 
         inline void SetColor(const Color& color);
         
-        inline dim_t GetLineHeight();
         
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
 
@@ -58,7 +63,9 @@ namespace ViewLib
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
 
         SizeType MeasureSize();
-        
+
+        void FillBoundaries(sf::RenderTarget& target);
+
     private:
         virtual void Render(sf::RenderTarget& target) final;
         
@@ -69,7 +76,6 @@ namespace ViewLib
 
     private:
         sf::Text sfText;
-        size_t LineHeight = 0;
     };
 }
 
@@ -86,17 +92,21 @@ namespace ViewLib
     void Text::SetFontSize(csize_t size)
     {
         sfText.setCharacterSize(size);
-        
-        const sf::Font* const fontPtr = sfText.getFont();
-        if (fontPtr)
-            LineHeight = fontPtr->getLineSpacing(GetFontSize());
+    }
+    
+    CoordType Text::GetPosition()
+    {
+        return sfText.getPosition();
+    }
+
+    void Text::SetPosition(const CoordType& position)
+    {
+        sfText.setPosition(position);
     }
 
     void Text::SetFont(const Font& font)
     {
         sfText.setFont(font.sfFont);
-        
-        LineHeight = font.sfFont.getLineSpacing(GetFontSize());
     }
 
     void Text::SetColor(const Color& color)
@@ -104,11 +114,6 @@ namespace ViewLib
         sfText.setFillColor(color);
     }
     
-    dim_t Text::GetLineHeight()
-    {
-        return LineHeight;
-    }
-
     size_t Text::GetLinesCount()
     {
         return std::count(Value.Begin(), Value.End(), '\n') + 1;

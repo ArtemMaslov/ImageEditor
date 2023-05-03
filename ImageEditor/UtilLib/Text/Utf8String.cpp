@@ -122,7 +122,7 @@ void Utf8String::EraseBack()
     Utf8SymCount--;
 }
 
-cptr Utf8String::GetRawData() const noexcept
+const char* Utf8String::GetRawData() const noexcept
 {
     return Value.data();
 }

@@ -4,7 +4,7 @@ PLATFORM     := x64
 BUILD_MODE   := Debug
 PROJECT_NAME := ImageEditor
 TARGET_PATH   = $(BIN)/$(TARGET_NAME)
-COMP         := clang++
+COMP         := g++
 #-Werror
 FLAGS  := -std=c++20 -O0 -DDEBUG -Wall -Wextra  -Wno-unused-function \
           -Wno-unused-variable \
