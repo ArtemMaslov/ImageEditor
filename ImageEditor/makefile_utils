@@ -42,6 +42,8 @@ msg_compile_complete = @echo "$(C_G)Компиляция программы ус
 msg_file_compile     = @echo "$(C_M)\tКомпиляция $(F_B)$(strip $1) $(F_N)...$(C_D)"
 # Вывести сообщение о начале редактирования связей.
 msg_linking          = @echo "$(C_Y)Редактирование связей ...$(C_D)"
+# Функция перевода имени файла x.cpp в $(OBJ)/x.obj
+SRC_TO_OBJ           = $(addprefix $(OBJ)/, $(subst .cpp,.obj,$1))
 
 # Команда вызова make для модуля.
 # 1 аргумент - путь к директории модуля.

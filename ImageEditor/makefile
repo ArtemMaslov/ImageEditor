@@ -8,7 +8,7 @@ vpath %.o $(OBJ)
 
 ###############################################################################
 
-srcs      := 
+srcs :=
 
 include $(PROJECT_DIR)/Application/makefile
 include $(PROJECT_DIR)/UtilLib/makefile
@@ -16,23 +16,24 @@ include $(PROJECT_DIR)/ViewLib/makefile
 
 ###############################################################################
 
-dependencies    := $(addprefix $(DEPENDENCIES_DIR)/, $(srcs:.cpp=.d))
+dependencies     := $(addprefix $(DEPENDENCIES_DIR)/, $(srcs:.cpp=.d))
 
-objs_to_compile := $(srcs:.cpp=.o)
-objs_modules    := $(objs_util_lib) $(objs_view_lib)
+objs_to_compile  := $(call SRC_TO_OBJ, $(srcs))
+objs_modules     := $(call SRC_TO_OBJ, $(srcs_view_lib)) $(call SRC_TO_OBJ, $(srcs_util_lib))
+objs_application := $(call SRC_TO_OBJ, $(srcs_application))
 
 ###############################################################################
 
 $(dependencies): $(DEPENDENCIES_DIR)/%.d: %.cpp | dir_dpnd
-	@$(COMP) -MM -o $@ $< -MT '$*.d' -MT '$*.o' $(INCLUDE_DIRS)
+	@$(COMP) -MM -o $@ $< -MT '$*.d' -MT '$*.obj' $(INCLUDE_DIRS) $(DEFINES)
 
 include $(dependencies)
 
 ###############################################################################
 
-$(objs_to_compile): %.o: %.cpp %.d
+$(objs_to_compile): $(OBJ)/%.obj: %.cpp %.d
 	$(call msg_compile, $*)
-	@$(COMP) -o $(OBJ)/$@ $< $(COMP_FLAGS)
+	@$(COMP) -o $@ $< $(COMP_FLAGS)
 
 compile: $(objs_to_compile)
 
@@ -47,7 +48,7 @@ build: dir_obj dir_bin
 	$(call msg_compile_complete)
 
 	$(call msg_linking)
-
+	
 	@$(COMP) -o $(TARGET_PATH) \
 		$(objs_modules) $(objs_application) $(LINK_FLAGS)
 	

@@ -1,5 +1,4 @@
-CURRENT_DIR  := $(PROJECT_DIR)/Application/ToolsProperties
+srcs_application += IProperties.cpp Tool.cpp SplineToolProperties.cpp BucketProperties.cpp \
+	ToolsController.cpp RectangleProperties.cpp CircleProperties.cpp TextProperties.cpp
 
-srcs_application += IProperties.cpp Tool.cpp SplineToolProperties.cpp BucketProperties.cpp ToolsController.cpp RectangleProperties.cpp CircleProperties.cpp TextProperties.cpp
-
-vpath %.cpp $(CURRENT_DIR)
+vpath %.cpp $(APPLICATION_DIR)/ToolsProperties

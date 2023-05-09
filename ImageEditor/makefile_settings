@@ -4,7 +4,9 @@ PLATFORM     := x64
 BUILD_MODE   := Debug
 PROJECT_NAME := ImageEditor
 TARGET_PATH   = $(BIN)/$(TARGET_NAME)
+# g++/clang
 COMP         := g++
+COMP_NAME     =
 #-Werror
 FLAGS  := -std=c++20 -O0 -DDEBUG -Wall -Wextra  -Wno-unused-function \
           -Wno-unused-variable \
@@ -13,16 +15,23 @@ FLAGS  := -std=c++20 -O0 -DDEBUG -Wall -Wextra  -Wno-unused-function \
 AFLAGS := -fsanitize=address -fsanitize=undefined
 
 INCLUDE_DIRS = -I./ -I$(SFML_PATH)/include
-DEFINES      = -D$(TARGET_OS) -DGCC
+DEFINES      = -D$(TARGET_OS) -DGCC -D$(COMP_NAME)
 
 COMP_FLAGS = $(FLAGS) -c -g $(INCLUDE_DIRS) $(DEFINES)
 LINK_FLAGS = -std=c++20 -g -L$(SFML_PATH)/lib -lsfml-graphics -lsfml-window -lsfml-system
 
 ###############################################################################
 
+ifeq ($(COMP), g++)
+    COMP_NAME = GCC
+else # ($(COMP), g++)
 ifeq ($(COMP), clang++)
     FLAGS += -Wno-unused-private-field
-endif
+    COMP_NAME = CLANG
+else # ($(COMP), clang++)
+    $(error "Данный компилятор не настроен для сборки.")
+endif # ($(COMP), clang++)
+endif # ($(COMP), g++)
 
 # Для разных версий Windows переменная среды OS всегда равна Windwos_NT
 ifeq ($(OS), Windows_NT)
@@ -50,8 +59,10 @@ ifeq ($(UNAME), Linux)
     TARGET_OS = LINUX
     TARGET_NAME := $(PROJECT_NAME)
 
-    SFML_PATH = ../../SFML-2.5.1-linux-gcc-64-bit
+    COMP_FLAGS += -pthread
+    LINK_FLAGS += -pthread
 
+    SFML_PATH = ../../SFML-2.5.1-linux-gcc-64-bit
     CMD_CREATE_DIR = mkdir -p $1
     CMD_DELETE_DIR = rm -r $1
     CMD_RUN_PROGRAM = cd $(BIN) && ./$(TARGET_NAME)
@@ -80,8 +91,8 @@ else # ($(UNAME), Linux)
     MSG := $(shell echo "$(C_R)Не удалось опеределить операционную систему, на которой выполняется сборка.$(C_D)")
     $(error $(MSG))
 
-endif # !($(UNAME), Linux)
-endif # !($(OS), Windows_NT)
+endif # ($(UNAME), Linux)
+endif # ($(OS), Windows_NT)
 
 ###############################################################################
 
