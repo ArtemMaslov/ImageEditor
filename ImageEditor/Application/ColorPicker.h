@@ -14,13 +14,13 @@ namespace ViewLib
     public:
         ColorPicker(ViewLib::SimpleWindow* const hostWindow, ViewLib::Color& outColor);
 
-        inline ViewLib::LinearLayout& GetLayout();
-
     private:
         void ColorChanged(ViewLib::EditText& colorEditText, ViewLib::color_t& colorComponent);
 
-    private:
+    public:
         ViewLib::LinearLayout Layout;
+
+    private:
         ViewLib::TextView TextViewColor;
 
         ViewLib::TextView TextViewRed;
@@ -30,17 +30,6 @@ namespace ViewLib
         ViewLib::TextView TextViewBlue;
         ViewLib::EditText EditTextBlue;
     };
-}
-
-///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
-///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
-
-namespace ViewLib
-{
-    ViewLib::LinearLayout& ColorPicker::GetLayout()
-    {
-        return Layout;
-    }
 }
 
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///

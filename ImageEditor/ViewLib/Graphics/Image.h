@@ -26,7 +26,6 @@ namespace ViewLib
         void SetStretchSize(SizeType newSize);
 
     private:
-        sf::Image   sfImage;
         sf::Texture sfTexture;
         sf::Sprite  sfSprite;
     };
@@ -39,7 +38,7 @@ namespace ViewLib
 {
     SizeType Image::GetSize()
     {
-        return sfImage.getSize();
+        return sfTexture.getSize();
     }
 }
 

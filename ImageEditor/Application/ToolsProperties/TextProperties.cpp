@@ -14,6 +14,12 @@ TextProperties::TextProperties(ImageEditor::MainWindow& mainWindow, ImageEditor:
     MainWindow(mainWindow),
 
     Tool(tool),
+    TextViewToolName(&mainWindow.Window),
+    TextViewFontSize(&mainWindow.Window),
+    EditTextFontSize(&mainWindow.Window),
+    TextViewString(&mainWindow.Window),
+    EditTextString(&mainWindow.Window),
+
     ColorPicker(&mainWindow.Window, tool.Color)
 {
     TextViewToolName.Text.Value = "Текст";
@@ -26,7 +32,7 @@ TextProperties::TextProperties(ImageEditor::MainWindow& mainWindow, ImageEditor:
     Layout.AddChild(&EditTextFontSize);
     Layout.AddChild(&TextViewString);
     Layout.AddChild(&EditTextString);
-    Layout.AddChild(&ColorPicker.GetLayout());
+    Layout.AddChild(&ColorPicker.Layout);
 
     EditTextFontSize.OnTextChanged += std::bind(&TextProperties::FontSizeChanged, this);
     EditTextString.OnTextChanged += std::bind(&TextProperties::StringChanged, this);

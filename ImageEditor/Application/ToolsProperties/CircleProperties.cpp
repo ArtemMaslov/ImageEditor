@@ -14,6 +14,10 @@ CircleProperties::CircleProperties(ImageEditor::MainWindow& mainWindow, ImageEdi
 
     Tool(tool),
 
+    TextViewToolName(&mainWindow.Window),
+    TextViewRadius(&mainWindow.Window),
+    EditTextRadius(&mainWindow.Window),
+
     ColorPicker(&mainWindow.Window, tool.Color)
 {
     TextViewToolName.Text.Value = "Круг";
@@ -23,7 +27,7 @@ CircleProperties::CircleProperties(ImageEditor::MainWindow& mainWindow, ImageEdi
     Layout.AddChild(&TextViewToolName);
     Layout.AddChild(&TextViewRadius);
     Layout.AddChild(&EditTextRadius);
-    Layout.AddChild(&ColorPicker.GetLayout());
+    Layout.AddChild(&ColorPicker.Layout);
 
     EditTextRadius.OnTextChanged += std::bind(&CircleProperties::RadiusChanged, this);
 }

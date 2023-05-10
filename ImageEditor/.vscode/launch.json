@@ -11,7 +11,14 @@
             "args": 
             [
             ],
-            "preLaunchTask": "BuildLinux"
+            "environment": 
+            [
+                {
+                    "name": "LD_LIBRARY_PATH",
+                    "value": "/lib:/lib32:/lib64:/libx32:/lib/x86_64-linux-gnu/:"
+                }
+            ],
+            "preLaunchTask": "BuildLinux",
         },
         {
             "name": "LaunchWindows",

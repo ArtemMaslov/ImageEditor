@@ -15,6 +15,13 @@ RectangleProperties::RectangleProperties(ImageEditor::MainWindow& mainWindow, Im
     MainWindow(mainWindow),
 
     Tool(tool),
+
+    TextViewToolName(&mainWindow.Window),
+    TextViewWidth(&mainWindow.Window),
+    EditTextWidth(&mainWindow.Window),
+    TextViewHeight(&mainWindow.Window),
+    EditTextHeight(&mainWindow.Window),
+
     ColorPicker(&mainWindow.Window, tool.Color)
 {
     TextViewToolName.Text.Value = "Прямоугольник";
@@ -28,7 +35,7 @@ RectangleProperties::RectangleProperties(ImageEditor::MainWindow& mainWindow, Im
     Layout.AddChild(&EditTextWidth);
     Layout.AddChild(&TextViewHeight);
     Layout.AddChild(&EditTextHeight);
-    Layout.AddChild(&ColorPicker.GetLayout());
+    Layout.AddChild(&ColorPicker.Layout);
     
     EditTextWidth.OnTextChanged  += std::bind(RectangleSizeChanged,
                                               std::ref(EditTextWidth), std::ref(Tool.Size.Hor));

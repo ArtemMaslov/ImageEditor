@@ -27,7 +27,7 @@ SplineToolProperties::SplineToolProperties(ImageEditor::MainWindow& mainWindow, 
     Layout.AddChild(&TextViewToolName);
     Layout.AddChild(&TextViewRadius);
     Layout.AddChild(&EditTextRadius);
-    Layout.AddChild(&ColorPicker.GetLayout());
+    Layout.AddChild(&ColorPicker.Layout);
 
     EditTextRadius.OnTextChanged += std::bind(&SplineToolProperties::RadiusChanged, this);
 }

@@ -41,6 +41,8 @@ namespace ViewLib
 
 		virtual void Render(IRender& drawable) final;
 
+		inline const sf::Texture& GetTexture();
+
 	public:
 		static const cuint_t DefaultCirclePointsCount = 30; 
 
@@ -59,7 +61,7 @@ namespace ViewLib
 
 namespace ViewLib
 {
-	inline SizeType CanvasType::GetSize()
+	SizeType CanvasType::GetSize()
 	{
 		return Size;
 	}
@@ -68,6 +70,11 @@ namespace ViewLib
 	{
 		Size = newSize;
 		Texture.create(Size.Hor, Size.Ver);
+	}
+
+	const sf::Texture& CanvasType::GetTexture()
+	{
+		return Texture.getTexture();
 	}
 }
 		

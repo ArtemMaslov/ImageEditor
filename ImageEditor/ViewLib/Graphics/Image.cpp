@@ -7,8 +7,7 @@ using namespace ViewLib;
 
 void Image::LoadFromFile(const std::string& filePath)
 {
-    sfImage.loadFromFile(filePath);
-    sfTexture.loadFromImage(sfImage);
+    sfTexture.loadFromFile(filePath);
     sfSprite.setTexture(sfTexture);
 }
 
@@ -19,7 +18,7 @@ void Image::Render(sf::RenderTarget& target)
 
 void Image::SetStretchSize(SizeType newSize)
 {
-    sf::Vector2u imageSize = sfImage.getSize();
+    sf::Vector2u imageSize = GetSize();
     sfSprite.setScale((float)newSize.Hor / (float)imageSize.x, (float)newSize.Ver / (float)imageSize.y);
 }
 

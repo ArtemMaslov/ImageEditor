@@ -18,14 +18,14 @@ namespace ImageEditor
     class ToolsMenu
     {
     public:
-        ToolsMenu(ImageEditor::MainWindow* const mainWindow);
+        ToolsMenu(ImageEditor::MainWindow& mainWindow);
 
     public:
         ViewLib::LinearLayout Layout;
 
     private:
         std::vector<ViewLib::ImageView> ToolsIcons;
-        ImageEditor::MainWindow* const MainWindow;
+        ImageEditor::MainWindow& MainWindow;
     };
 }
 

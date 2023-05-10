@@ -30,6 +30,7 @@ void ViewGroup::Draw(IRenderTarget& target)
 
 void ViewGroup::OnDraw(IRenderTarget& target)
 {
+	Canvas.DrawRectangle(CoordType{0, 0}, GetSize().Hor, GetSize().Ver, BackgroundColor);
 }
 
 bool ViewGroup::OnMouseEvent(const MouseEvent& event)

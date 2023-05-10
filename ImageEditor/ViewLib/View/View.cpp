@@ -13,10 +13,11 @@ View* View::FocusedView = nullptr;
 View::View() :
 	HostWindow(nullptr)
 {
+	assert(!"[Debug check] Please, use another constructor");
 }
 
 View::View(SimpleWindow* const hostWindow) :
-	BackgroundColor(),
+	BackgroundColor(40, 40, 40),
 	Parent(nullptr),
 	HostWindow(hostWindow),
 	Canvas()
@@ -28,13 +29,13 @@ void View::Draw(IRenderTarget& target)
 	// Рисуем View.
 	OnDraw(target);
 
-	// После рисования View.
-	Color borderColor(220, 20, 20);
+	// Граница компонента.
+	Color borderColor(150, 150, 150);
 	Canvas.DrawLine(CoordType(0, 0), CoordType(Size.Hor, 0), borderColor);
 	Canvas.DrawLine(CoordType(1, 0), CoordType(1, Size.Ver - 1), borderColor);
 	Canvas.DrawLine(CoordType(Size.Hor, 0), CoordType(Size.Hor, Size.Ver), borderColor);
 	Canvas.DrawLine(CoordType(0, Size.Ver - 1), CoordType(Size.Hor, Size.Ver - 1), borderColor);
-
+	
 	target.Render(Canvas);
 }
 

@@ -30,7 +30,7 @@ Text::Text() :
 {
     SetFont(Font::GetFont());
     SetFontSize(20);
-    SetColor(Color(0, 0, 0));
+    SetColor(Color(200, 200, 200));
 }
 
 void Text::UpdateString()
@@ -77,7 +77,6 @@ void Text::FillBoundaries(sf::RenderTarget& target)
 void Text::Render(sf::RenderTarget& target)
 {
     UpdateString();
-    FillBoundaries(target);
 
     target.draw(sfText);
 }

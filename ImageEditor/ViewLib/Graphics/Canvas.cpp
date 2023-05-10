@@ -64,6 +64,7 @@ void CanvasType::DrawPoint(const CoordType& point, const Color& color)
 void CanvasType::Clear()
 {
 	Texture.clear(sf::Color(255, 255, 255));
+	Texture.display();
 }
 
 void CanvasType::Render(sf::RenderTarget& target)

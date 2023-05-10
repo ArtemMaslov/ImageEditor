@@ -14,15 +14,18 @@ MainWindow::MainWindow() :
 	CanvasView(Window, ToolsController),
 	RootLayout(&Window, ViewLib::Direction::Vertical),
 	LayoutPropertiesCanvas(&Window, ViewLib::Direction::Horizontal),
-	ToolsMenu(this)
+	MainMenu(*this),
+	ToolsMenu(*this)
 {
 	Window.SetRootView(&RootLayout);
 
+	RootLayout.AddChild(&MainMenu.Layout);
 	RootLayout.AddChild(&ToolsMenu.Layout);
 	RootLayout.AddChild(&LayoutPropertiesCanvas);
 
-	RootLayout.SumWeight.Ver = 20;
-	ToolsMenu.Layout.Weight.Ver = 4;
+	RootLayout.SumWeight.Ver          = 21;
+	MainMenu.Layout.Weight.Ver        = 1;
+	ToolsMenu.Layout.Weight.Ver       = 4;
 	LayoutPropertiesCanvas.Weight.Ver = 16;
 
 	LayoutPropertiesCanvas.AddChild(&PropertiesMenu.Layout);

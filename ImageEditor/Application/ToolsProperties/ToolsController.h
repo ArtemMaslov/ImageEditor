@@ -44,27 +44,27 @@ namespace ImageEditor
         static constexpr ImageInfo Images[ImagesCount] = 
         {
             {
-                "./Images/Pencil.jpg",
+                "./Images/pen-color-c.png",
                 ToolType::Pencil,
             },
             {
-                "./Images/Bucket.jpg",
+                "./Images/bucket-color-c.png",
                 ToolType::Bucket,
             },
             {
-                "./Images/Eraser.png",
+                "./Images/eraser-color-c.png",
                 ToolType::Eraser,
             },
             {
-                "./Images/Text.jpg",
+                "./Images/text-color-c.png",
                 ToolType::Text,
             },
             {
-                "./Images/Rectangle.jpeg",
+                "./Images/rectangle-color-c.png",
                 ToolType::Rectangle,
             },
             {
-                "./Images/Circle.png",
+                "./Images/circle-color-c.png",
                 ToolType::Circle,
             }
         };

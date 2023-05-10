@@ -4,6 +4,7 @@
 
 #include "ToolsProperties/ToolsController.h"
 #include "CanvasView.h"
+#include "MainMenu.h"
 #include "ToolsMenu.h"
 #include "PropertiesMenu.h"
 
@@ -35,6 +36,7 @@ namespace ImageEditor
 		/// Содержит меню настроек и CanvasView.
 		ViewLib::LinearLayout LayoutPropertiesCanvas;
 		
+		ImageEditor::MainMenu  MainMenu;
 		ImageEditor::ToolsMenu ToolsMenu;
 	};
 }

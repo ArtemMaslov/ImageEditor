@@ -24,6 +24,7 @@ namespace ImageEditor
         ImageEditor::Bucket& Tool;
         
         ViewLib::TextView TextViewToolName;
+        
         ViewLib::ColorPicker ColorPicker;
     };
 }

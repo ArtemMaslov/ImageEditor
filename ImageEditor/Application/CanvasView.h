@@ -1,6 +1,7 @@
 #pragma once
 
 #include <ViewLib/View/View.h>
+#include <ViewLib/Graphics/Image.h>
 
 #include "ToolsProperties/Tool.h"
 #include "ToolsProperties/ToolsController.h"
@@ -20,6 +21,10 @@ namespace ViewLib
 		virtual void OnDraw(IRenderTarget& target) override;
 
 		virtual bool OnMouseEvent(const MouseEvent& event) override;
+
+        void LoadImage(ViewLib::Image& image);
+
+        const sf::Texture& GetTexture();
 
     private:
         template <Direction direction>

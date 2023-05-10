@@ -4,7 +4,7 @@
         {
             "label":   "BuildLinux",
             "type":    "shell",
-            "command": "make -j8",
+            "command": "make -j16",
             "group": 
             {
                 "kind":      "build",
@@ -15,7 +15,7 @@
         {
             "label":   "BuildWindows",
             "type":    "shell",
-            "command": "chcp 65001 && make -j8",
+            "command": "chcp 65001 && make -j16",
             "group": 
             {
                 "kind":      "build",

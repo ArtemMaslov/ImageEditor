@@ -78,7 +78,7 @@ namespace ViewLib
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
 
 	public:
-		Color  BackgroundColor;
+		Color BackgroundColor;
 
 		/// Вес компонента. Используется контейнерами для распределения места для компонентов.
 		ViewLib::WeightType Weight {0, 0};
