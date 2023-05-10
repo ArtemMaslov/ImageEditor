@@ -1,0 +1,13 @@
+Изображения иконок инструментов взяты с сайта www.flaticon.com:
+1. Icons made by kmg design from www.flaticon.com:
+<a href="https://www.flaticon.com/ru/free-icons/ux" title="ux иконки">Ux иконки от kmg design - Flaticon</a>
+<a href="https://www.flaticon.com/ru/free-icons/" title=" иконки"> иконки от kmg design - Flaticon</a>
+<a href="https://www.flaticon.com/ru/free-icons/" title="чернила иконки">Чернила иконки от kmg design - Flaticon</a>
+<a href="https://www.flaticon.com/ru/free-icons/-" title="палитра цветов иконки">Палитра цветов иконки от kmg design - Flaticon</a>
+<a href="https://www.flaticon.com/ru/free-icons/-" title="редактировать текст иконки">Редактировать текст иконки от kmg design - Flaticon</a>
+<a href="https://www.flaticon.com/ru/free-icons/" title="редактор иконки">Редактор иконки от kmg design - Flaticon</a>
+<a href="https://www.flaticon.com/ru/free-icons/-" title="Цвет заливки иконки">Цвет заливки иконки от kmg design - Flaticon</a>
+2. Icon made by Bharat Icons from www.flaticon.com:
+<a href="https://www.flaticon.com/ru/free-icons/" title="круг иконки">Круг иконки от Bharat Icons - Flaticon</a>
+3. Icon made by HussainDev-Icon from www.flaticon.com:
+<a href="https://www.flaticon.com/ru/free-icons/" title="прямоугольник иконки">Прямоугольник иконки от HussainDev-Icon - Flaticon</a>
