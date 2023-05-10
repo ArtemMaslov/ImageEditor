@@ -84,7 +84,7 @@ namespace UtilLib
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
 
-    class Utf8Iterator : std::bidirectional_iterator_tag
+    class Utf8Iterator
     {
         friend class Utf8String;
         friend bool operator == (const Utf8Iterator& left, const Utf8Iterator& right);

@@ -51,6 +51,9 @@ build: dir_obj dir_bin
 	
 	@$(COMP) -o $(TARGET_PATH) \
 		$(objs_modules) $(objs_application) $(LINK_FLAGS)
+
+	$(if $(wildcard ../x64/Debug/Images), , cp ../Images ../x64/Debug/ -r)
+	$(if $(wildcard ../x64/Debug/Liberation\ Sans), , cp ../"Liberation Sans" ../x64/Debug/ -r)
 	
 	$(call msg_build_complete)
 
