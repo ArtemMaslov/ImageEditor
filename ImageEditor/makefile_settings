@@ -14,10 +14,12 @@ FLAGS  := -std=c++20 -O0 -DDEBUG -Wall -Wextra  -Wno-unused-function \
           -Wno-unused-parameter
 AFLAGS := -fsanitize=address -fsanitize=undefined
 
-INCLUDE_DIRS = -I./ -I$(SFML_PATH)/include
-DEFINES      = -D$(TARGET_OS) -DGCC -D$(COMP_NAME)
+INCLUDE_INTERNAL_LIBS := -I./
+INCLUDE_EXTERNAL_LIBS := -I$(SFML_PATH)/include
+INCLUDE_LIBS          := $(INCLUDE_EXTERNAL_LIBS) $(INCLUDE_INTERNAL_LIBS)
+DEFINES                = -D$(TARGET_OS) -D$(COMP_NAME)
 
-COMP_FLAGS = $(FLAGS) -c -g $(INCLUDE_DIRS) $(DEFINES)
+COMP_FLAGS = $(FLAGS) -c -g $(INCLUDE_LIBS) $(DEFINES)
 LINK_FLAGS = -std=c++20 -g -L$(SFML_PATH)/lib -lsfml-graphics -lsfml-window -lsfml-system
 
 ###############################################################################
@@ -98,7 +100,7 @@ endif # ($(OS), Windows_NT)
 
 BIN_PLATFORM_DIR = $(PROJECT_DIR)/../$(PLATFORM)
 OBJ_PLATFORM_DIR = $(PROJECT_DIR)/$(PLATFORM)
-DEPENDENCIES_DIR = $(PROJECT_DIR)/dpnd
+DPND = $(PROJECT_DIR)/dpnd
 
 BIN = $(BIN_PLATFORM_DIR)/$(BUILD_MODE)
 OBJ = $(OBJ_PLATFORM_DIR)/$(BUILD_MODE)

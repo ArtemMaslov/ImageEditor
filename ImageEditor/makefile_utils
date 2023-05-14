@@ -13,7 +13,7 @@ dir_obj:
 	$(if $(wildcard $(OBJ)), , $(call CMD_CREATE_DIR, $(OBJ)) )
 
 dir_dpnd:
-	$(if $(wildcard $(DEPENDENCIES_DIR)), , $(call CMD_CREATE_DIR, $(DEPENDENCIES_DIR)) )
+	$(if $(wildcard $(DPND)), , $(call CMD_CREATE_DIR, $(DPND)) )
 
 # Очистить папку с объектными файлами.
 clear_obj:
@@ -23,7 +23,7 @@ clear_bin:
 	$(if $(wildcard $(BIN)), $(call CMD_CLEAR_BIN) , )
 
 clear_dpnd:
-	$(if $(wildcard $(DEPENDENCIES_DIR)), $(call CMD_DELETE_DIR, $(DEPENDENCIES_DIR)) , )
+	$(if $(wildcard $(DPND)), $(call CMD_DELETE_DIR, $(DPND)) , )
 
 ###############################################################################
 
