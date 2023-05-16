@@ -1,4 +1,4 @@
-#include <exception>
+#include <cstdlib>
 
 #include "Files.h"
 
@@ -12,7 +12,8 @@ File::File(cptr filePath, cptr mode)
     FilePtr = fopen(filePath, mode);
     if (!FilePtr)
     {
-        throw std::exception();
+        fprintf(stderr, "Ошибка открытия файла с помощью fopen().\n");
+        std::abort();
     }
 
     fseek(FilePtr, 0, SEEK_END);

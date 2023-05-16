@@ -21,9 +21,11 @@ namespace UtilLib
 
         ~Pipe();
 
+        bool CanRead();
+
     public:
         int ReadDescriptor = -1;
-        int WriteDecriptor = -1;
+        int WriteDescriptor = -1;
     };
 
     ssize_t ExecProcessAndWait(cptr cmd, char* const buffer, size_t bufferSize);
