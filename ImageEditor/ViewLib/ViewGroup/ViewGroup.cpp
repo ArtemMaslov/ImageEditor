@@ -1,18 +1,19 @@
 #include "ViewGroup.h"
 
-using ViewLib::ViewGroup;
+using namespace ViewLib;
 
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
 
 ViewGroup::ViewGroup() :
-	View()
+	ViewGroup(nullptr)
 {
 }
 
 ViewGroup::ViewGroup(SimpleWindow* const hostWindow) :
 	View(hostWindow)
 {
+	DrawBorder = true;
 }
 
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
@@ -20,8 +21,8 @@ ViewGroup::ViewGroup(SimpleWindow* const hostWindow) :
 
 void ViewGroup::Draw(IRenderTarget& target)
 {
-	// Рисуем ViewGroup.
 	View::Draw(target);
+
 	// Рисуем детей.
 	csize_t childrenCount = GetChildrenCount();
 	for (size_t st = 0; st < childrenCount; st++)
@@ -30,8 +31,26 @@ void ViewGroup::Draw(IRenderTarget& target)
 
 void ViewGroup::OnDraw(IRenderTarget& target)
 {
-	Canvas.DrawRectangle(CoordType{0, 0}, GetSize().Hor, GetSize().Ver, BackgroundColor);
 }
+
+///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
+///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
+
+SizeType ViewGroup::OnMeasure(const MeasureStruct& meas)
+{
+	if (DrawBorder)
+	{
+		
+	}
+}
+
+void ViewGroup::OnLayout(const CoordType& coord)
+{
+
+}
+
+///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
+///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
 
 bool ViewGroup::OnMouseEvent(const MouseEvent& event)
 {

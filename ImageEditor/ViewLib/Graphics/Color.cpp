@@ -5,24 +5,6 @@ using namespace ViewLib;
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
 
-Color::Color() noexcept:
-	Color(255, 255, 255)
-{
-}
-
-Color::Color(const sf::Color& color) noexcept:
-	Color(color.r, color.g, color.b)
-{
-}
-
-Color::Color(color_t r, color_t g, color_t b) noexcept: 
-	R(r), G(g), B(b) 
-{
-}
-
-///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
-///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
-
 void Color::SetColor(color_t r, color_t g, color_t b) noexcept
 {
 	R = r;

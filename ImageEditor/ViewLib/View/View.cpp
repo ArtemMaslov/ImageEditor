@@ -11,38 +11,58 @@ View* View::FocusedView = nullptr;
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
 
 View::View() :
-	HostWindow(nullptr)
+	View(nullptr)
 {
-	assert(!"[Debug check] Please, use another constructor");
 }
 
 View::View(SimpleWindow* const hostWindow) :
-	BackgroundColor(40, 40, 40),
 	Parent(nullptr),
 	HostWindow(hostWindow),
 	Canvas()
 {
 }
 
+///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
+///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
+
 void View::Draw(IRenderTarget& target)
 {
+	if (DrawBackground)
+		FillBackground();
+
 	// Рисуем View.
 	OnDraw(target);
 
 	// Граница компонента.
-	Color borderColor(150, 150, 150);
-	Canvas.DrawLine(CoordType(0, 0), CoordType(Size.Hor, 0), borderColor);
-	Canvas.DrawLine(CoordType(1, 0), CoordType(1, Size.Ver - 1), borderColor);
-	Canvas.DrawLine(CoordType(Size.Hor, 0), CoordType(Size.Hor, Size.Ver), borderColor);
-	Canvas.DrawLine(CoordType(0, Size.Ver - 1), CoordType(Size.Hor, Size.Ver - 1), borderColor);
+	if (DrawBorder)
+		DrawBoundaries();
 	
 	target.Render(Canvas);
 }
+
+void View::FillBackground()
+{
+	Canvas.DrawRectangle(CoordType{0, 0}, GetSize().Hor, GetSize().Ver, ColorBackground);
+}
+
+void View::DrawBoundaries()
+{
+	Canvas.DrawLine(CoordType(0, 0), CoordType(Size.Hor, 0), ColorBorder);
+	Canvas.DrawLine(CoordType(1, 0), CoordType(1, Size.Ver - 1), ColorBorder);
+	Canvas.DrawLine(CoordType(Size.Hor, 0), CoordType(Size.Hor, Size.Ver), ColorBorder);
+	Canvas.DrawLine(CoordType(0, Size.Ver - 1), CoordType(Size.Hor, Size.Ver - 1), ColorBorder);
+}
+
+///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
+///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
 
 void View::OnLayout(const CoordType& coord)
 {
 	SetPosition(coord);
 }
+
+///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
+///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
 
 bool View::OnMouseEvent(const MouseEvent& event)
 {

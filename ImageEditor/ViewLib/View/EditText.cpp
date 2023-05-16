@@ -19,6 +19,8 @@ EditText::EditText(SimpleWindow* const hostWindow) :
 
 bool EditText::OnKeyboardEvent(const KeyboardEvent& event)
 {
+    assert(HostWindow);
+    
     if (!IsFocused())
         return false;
 

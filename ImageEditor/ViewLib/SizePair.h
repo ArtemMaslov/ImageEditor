@@ -9,6 +9,9 @@ namespace ViewLib
 {
 	struct SizePair
 	{
+        friend bool operator == (const SizePair& left, const SizePair& right);
+        friend bool operator != (const SizePair& left, const SizePair& right);
+
 		inline SizePair() noexcept {};
 
 		inline SizePair(cdim_t hor, cdim_t ver) noexcept;
@@ -40,6 +43,9 @@ namespace ViewLib
 		dim_t Hor = 0;
 		dim_t Ver = 0;
 	};
+	
+    inline bool operator == (const SizePair& left, const SizePair& right);
+    inline bool operator != (const SizePair& left, const SizePair& right);
 
 	using SizeType   = SizePair;
 	using WeightType = SizePair;
@@ -133,6 +139,19 @@ namespace ViewLib
 	{
 		Hor /= right.Hor;
 		Ver /= right.Ver;
+	}
+
+///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
+///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
+
+    bool operator == (const SizePair& left, const SizePair& right)
+	{
+		return left.Hor == right.Hor && left.Ver == right.Ver;
+	}
+
+    bool operator != (const SizePair& left, const SizePair& right)
+	{
+		return !(left == right);
 	}
 }
 

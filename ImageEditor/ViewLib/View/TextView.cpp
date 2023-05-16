@@ -52,7 +52,6 @@ SizeType TextView::OnMeasure(const MeasureStruct& meas)
 
 void TextView::OnDraw(IRenderTarget& target)
 {
-	Canvas.DrawRectangle(CoordType{0, 0}, GetSize().Hor, GetSize().Ver, BackgroundColor);
     Canvas.Render(Text);
 }
 

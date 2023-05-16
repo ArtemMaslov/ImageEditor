@@ -24,13 +24,13 @@ void Font::LoadFromFile(const std::string& FilePath)
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
 
-Text::Text() :
+Text::Text(size_t fontSize, const Color& color) :
     Value(),
     sfText()
 {
     SetFont(Font::GetFont());
-    SetFontSize(20);
-    SetColor(Color(200, 200, 200));
+    SetFontSize(fontSize);
+    SetColor(color);
 }
 
 void Text::UpdateString()

@@ -19,6 +19,10 @@ namespace ViewLib
 		virtual void AddChild(View* const child) = 0;
 		
 		virtual void RemoveAllChildren() = 0;
+		
+		virtual SizeType OnMeasure(const MeasureStruct& meas) override;
+
+		virtual void OnLayout(const CoordType& coord) override;
 
 	private:
 		// Системная функция начала рисования View.

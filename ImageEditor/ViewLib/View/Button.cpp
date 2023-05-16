@@ -61,7 +61,6 @@ dim_t Button::MeasureDirection(const MeasureStruct& meas)
 
 void Button::OnDraw(IRenderTarget& target)
 {
-	Canvas.DrawRectangle(CoordType{0, 0}, GetSize().Hor, GetSize().Ver, BackgroundColor);
     Canvas.Render(Text);
 }
 

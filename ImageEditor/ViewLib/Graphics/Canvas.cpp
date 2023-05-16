@@ -13,9 +13,26 @@ CanvasType::CanvasType() :
 {
 }
 
-///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
-///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
+CanvasType::CanvasType(const CanvasType& canvasType) :
+	Pos(canvasType.Pos),
+	Size(canvasType.Size),
+	Texture()
+{
+	Texture.create(Size.Hor, Size.Ver);
+	sf::Sprite sprite(canvasType.Texture.getTexture());
+	Texture.draw(sprite);
+}
 
+const CanvasType& CanvasType::operator = (const CanvasType& canvasType)
+{
+	Texture.create(Size.Hor, Size.Ver);
+	sf::Sprite sprite(canvasType.Texture.getTexture());
+	Texture.draw(sprite);
+	return *this;
+}
+
+///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
+///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
 
 void CanvasType::DrawLine(const CoordType& p1, const CoordType& p2, const Color& color)
 {

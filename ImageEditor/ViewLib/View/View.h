@@ -11,6 +11,7 @@
 
 #include "../Graphics/Drawable.h"
 #include "../Graphics/Canvas.h"
+#include "../Graphics/StdColors.h"
 
 #include "../SimpleWindow.h"
 #include "../General.h"
@@ -40,6 +41,11 @@ namespace ViewLib
 		virtual SizeType OnMeasure(const MeasureStruct& meas) = 0;
 
 		virtual void OnLayout(const CoordType& coord);
+
+	protected:
+		void FillBackground();
+
+		void DrawBoundaries();
 
 	private:
 		// Системная функция начала рисования View.
@@ -78,7 +84,11 @@ namespace ViewLib
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
 
 	public:
-		Color BackgroundColor;
+		bool  DrawBackground  = true;
+		Color ColorBackground = STD_COLOR_BACKGROUND;
+
+		bool  DrawBorder  = false;
+		Color ColorBorder = STD_COLOR_BORDER;
 
 		/// Вес компонента. Используется контейнерами для распределения места для компонентов.
 		ViewLib::WeightType Weight {0, 0};

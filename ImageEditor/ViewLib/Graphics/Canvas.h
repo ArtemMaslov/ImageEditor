@@ -22,6 +22,16 @@ namespace ViewLib
 	public:
 		CanvasType();
 
+		CanvasType(const CanvasType& canvasType);
+
+		const CanvasType& operator = (const CanvasType& canvasType);
+
+		CanvasType(CanvasType&& canvasType) = delete;
+		
+		const CanvasType& operator = (CanvasType&& canvasType) = delete;
+
+		~CanvasType() = default;
+
 		inline SizeType GetSize();
 
 		inline void SetSize(const SizeType& newSize);

@@ -22,7 +22,7 @@ namespace ViewLib
 		
 		virtual void RemoveAllChildren() final;
 
-		SizeType OnMeasure(const MeasureStruct& measure) override;
+		virtual SizeType OnMeasure(const MeasureStruct& meas) override;
 
 		virtual void OnLayout(const CoordType& coord) override;
 
