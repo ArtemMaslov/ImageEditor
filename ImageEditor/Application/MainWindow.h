@@ -2,10 +2,10 @@
 
 #include <ViewLib/SimpleWindow.h>
 
-#include "ToolsProperties/ToolsController.h"
+#include "Tools/ToolsController.h"
 #include "CanvasView.h"
 #include "MainMenu.h"
-#include "ToolsMenu.h"
+#include "Tools/ToolsMenu.h"
 #include "PropertiesMenu.h"
 
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///

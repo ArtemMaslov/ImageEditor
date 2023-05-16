@@ -1,3 +1,5 @@
+#include <ViewLib/Graphics/StdColors.h>
+
 #include "ToolsController.h"
 
 #include "../MainWindow.h"
@@ -9,13 +11,13 @@ using namespace ImageEditor;
 
 ToolsController::ToolsController(ImageEditor::MainWindow& mainWindow) :
     MainWindow(mainWindow),
-    Pencil(10, ViewLib::Color{0, 0, 0}),
+    Pencil(10, STD_COLOR_TEXT),
     PencilProperties(mainWindow, Pencil, "Карандаш"),
-    Eraser(50, ViewLib::Color{255, 255, 255}),
+    Eraser(50, STD_COLOR_BACKGROUND),
     EraserProperties(mainWindow, Eraser, "Ластик"),
-    Bucket(ViewLib::Color{255, 255, 255}),
+    Bucket(STD_COLOR_BACKGROUND),
     BucketProperties(mainWindow, Bucket),
-    Text(ViewLib::Color{40, 40, 40}),
+    Text(STD_COLOR_TEXT),
     TextProperties(mainWindow, Text),
     Rectangle(ViewLib::SizeType(40, 30), ViewLib::Color{200, 40, 40}),
     RectangleProperties(mainWindow, Rectangle),

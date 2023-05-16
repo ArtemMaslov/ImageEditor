@@ -46,7 +46,7 @@ RectangleProperties::RectangleProperties(ImageEditor::MainWindow& mainWindow, Im
 static void RectangleSizeChanged(ViewLib::EditText& editText, ViewLib::dim_t& outValue)
 {
     int64_t newValue = 0;
-    if (editText.Text.Value.ToInt(newValue) == ConversionError::NoErrors && newValue > 0)
+    if (editText.Text.Value.ToNumber(newValue) == ConversionError::NoErrors && newValue > 0)
         outValue = newValue;
 }
 

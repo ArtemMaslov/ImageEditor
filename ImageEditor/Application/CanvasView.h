@@ -3,8 +3,8 @@
 #include <ViewLib/View/View.h>
 #include <ViewLib/Graphics/Image.h>
 
-#include "ToolsProperties/Tool.h"
-#include "ToolsProperties/ToolsController.h"
+#include "Tools/Tool.h"
+#include "Tools/ToolsController.h"
 
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
@@ -35,6 +35,8 @@ namespace ViewLib
     private:
         bool IsDrawing = false;
         ImageEditor::ToolsController& ToolsController;
+
+        CanvasType DrawingCanvas;
     };
 }
 

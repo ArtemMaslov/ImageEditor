@@ -6,8 +6,10 @@ using namespace ViewLib;
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
 
 CanvasView::CanvasView(SimpleWindow &hostWindow, ImageEditor::ToolsController &toolsController) : View(&hostWindow),
-    ToolsController(toolsController)
+    ToolsController(toolsController),
+    DrawingCanvas()
 {
+    DrawBackground = false;
 }
 
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
@@ -19,6 +21,15 @@ SizeType CanvasView::OnMeasure(const MeasureStruct &meas)
 
     newSize.Hor = MeasureDirection<Direction::Horizontal>(meas);
     newSize.Ver = MeasureDirection<Direction::Vertical>(meas);
+
+    static bool first = false;
+    if (!first && newSize != GetSize())
+    {
+        CanvasType copy = DrawingCanvas;
+        DrawingCanvas.SetSize(newSize);
+        DrawingCanvas.Render(copy);
+        first = true;
+    }
 
     SetSize(newSize);
     return newSize;
@@ -50,12 +61,7 @@ dim_t CanvasView::MeasureDirection(const MeasureStruct &meas)
 
 void CanvasView::OnDraw(IRenderTarget &target)
 {
-    static bool BackgroundFilled = false;
-    if (!BackgroundFilled)
-    {
-	    Canvas.DrawRectangle(CoordType{0, 0}, GetSize().Hor, GetSize().Ver, BackgroundColor);
-        BackgroundFilled = true;
-    }
+    Canvas.Render(DrawingCanvas);
 }
 
 bool CanvasView::OnMouseEvent(const MouseEvent &event)
@@ -75,7 +81,7 @@ bool CanvasView::OnMouseEvent(const MouseEvent &event)
         drawingPoint -= Pos;
 
         if (ToolsController.ActiveTool)
-            ToolsController.ActiveTool->Draw(Canvas, drawingPoint);
+            ToolsController.ActiveTool->Draw(DrawingCanvas, drawingPoint);
     }
 
     return true;
@@ -86,13 +92,13 @@ bool CanvasView::OnMouseEvent(const MouseEvent &event)
 
 void CanvasView::LoadImage(ViewLib::Image &image)
 {
-	Canvas.DrawRectangle(CoordType{0, 0}, GetSize().Hor, GetSize().Ver, BackgroundColor);
-    Canvas.Render(image);
+	DrawingCanvas.DrawRectangle(CoordType{0, 0}, GetSize().Hor, GetSize().Ver, ColorBackground);
+    DrawingCanvas.Render(image);
 }
 
 const sf::Texture &CanvasView::GetTexture()
 {
-    return Canvas.GetTexture();
+    return DrawingCanvas.GetTexture();
 }
 
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///

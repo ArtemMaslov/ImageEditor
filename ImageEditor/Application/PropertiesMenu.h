@@ -1,7 +1,7 @@
 #pragma once
 
 #include <ViewLib/ViewGroup/LinearLayout.h>
-#include "ToolsProperties/IProperties.h"
+#include "Tools/IProperties.h"
 
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///

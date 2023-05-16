@@ -35,7 +35,7 @@ CircleProperties::CircleProperties(ImageEditor::MainWindow& mainWindow, ImageEdi
 void CircleProperties::RadiusChanged()
 {
     int64_t newRadius = 0;
-    if (EditTextRadius.Text.Value.ToInt(newRadius) == ConversionError::NoErrors && newRadius > 0)
+    if (EditTextRadius.Text.Value.ToNumber(newRadius) == ConversionError::NoErrors && newRadius > 0)
         Tool.Radius = newRadius;
 }
 

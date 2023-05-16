@@ -2,8 +2,8 @@
 
 #include <ViewLib/ViewGroup/LinearLayout.h>
 
-#include "ToolsProperties/ToolsController.h"
-#include "MainWindow.h"
+#include "ToolsController.h"
+#include "../MainWindow.h"
 #include "ToolsMenu.h"
 
 using namespace ImageEditor;

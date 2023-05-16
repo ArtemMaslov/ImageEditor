@@ -46,7 +46,7 @@ void TextProperties::StringChanged()
 void TextProperties::FontSizeChanged()
 {
     int64_t newFontSize = 0;
-    if (EditTextFontSize.Text.Value.ToInt(newFontSize) == ConversionError::NoErrors&& newFontSize > 0)
+    if (EditTextFontSize.Text.Value.ToNumber(newFontSize) == ConversionError::NoErrors&& newFontSize > 0)
         Tool.Value.SetFontSize(newFontSize);
 }
 

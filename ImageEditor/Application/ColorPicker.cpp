@@ -44,7 +44,7 @@ ColorPicker::ColorPicker(ViewLib::SimpleWindow* const hostWindow, ViewLib::Color
 void ColorPicker::ColorChanged(ViewLib::EditText& colorEditText, ViewLib::color_t& colorComponent)
 {
     int64_t newColor = 0;
-    if (colorEditText.Text.Value.ToInt(newColor) == ConversionError::NoErrors &&
+    if (colorEditText.Text.Value.ToNumber(newColor) == ConversionError::NoErrors &&
         newColor >= 0 && newColor <= 255)
         colorComponent = newColor;
 }
