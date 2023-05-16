@@ -1,5 +1,4 @@
 #include <cassert>
-#include <array>
 
 #include "Utf8String.h"
 
@@ -130,49 +129,6 @@ const char* Utf8String::GetRawData() const noexcept
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
 
-Utf8String::ConversionError Utf8String::ToInt(int64_t& result)
-{
-    result = 0;
-
-    // Если в числе был встречен знак. Для проверки, что введён только один знак.
-    bool sign = false;
-    // Отрицательное число.
-    bool negative = false;
-
-    Utf8Iterator current = Begin();
-    Utf8Iterator end = End();
-    for (; current < end; current++)
-    {
-        if (!((*current >= '0' && *current <= '9') || *current == '-' || *current == '+'))
-            return ConversionError::NotAllowedChar;
-
-        if (*current == '-' || *current == '+')
-        {
-            // В числе может быть только один знак.
-            if (sign == true)
-                return ConversionError::DoubleSign;
-
-            if (*current == '-')
-                negative = true;
-            sign = true;
-        }
-
-        int64_t newResult = 10 * result + (*current - '0');
-        if (newResult < result)
-            return ConversionError::Overflow;
-        
-        result = newResult;
-    }
-
-    if (negative)
-        result *= -1;
-
-    return ConversionError::NoErrors;
-}
-
-///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
-///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
-
 Utf8Iterator Utf8String::Begin()
 {
     return Utf8Iterator(Value.begin(), Value.end());
@@ -209,7 +165,7 @@ Utf8Iterator::Utf8Iterator()
 
 Utf8Char Utf8Iterator::operator *() const
 {
-    uint32_t utf8Char = Decode(CurrentSymbol);
+    uint32_t utf8Char = Decode();
     return Utf8Char(utf8Char);
 }
 
@@ -278,8 +234,10 @@ void Utf8Iterator::Next()
     CurrentSymbol += 1 + trailingBytes;
 }
 
-uint32_t Utf8Iterator::Decode(std::string::iterator symStart) const
+uint32_t Utf8Iterator::Decode() const
 {
+    std::string::iterator symStart = CurrentSymbol;
+    
     uint32_t result = 0;
     uint8_t trailingBytes = Utf8TrailingBytesCount[static_cast<uint8_t>(*symStart)];
 

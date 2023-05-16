@@ -4,6 +4,7 @@
 #include <iterator>
 #include <cstddef>
 #include <concepts>
+#include <charconv>
 
 #include <SFML/System.hpp>
 
@@ -60,7 +61,8 @@ namespace UtilLib
             Overflow,
         };
 
-        ConversionError ToInt(int64_t& result);
+        template <typename T>
+        ConversionError ToNumber(T& result);
 
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
 
@@ -114,7 +116,7 @@ namespace UtilLib
         // Найти начало символа
         void Previous();
 
-        uint32_t Decode(std::string::iterator symStart) const;
+        uint32_t Decode() const;
 
         void Next();
 
@@ -146,6 +148,25 @@ namespace UtilLib
     private:
         uint32_t Value = 0;
     };
+}
+
+///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
+///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
+
+namespace UtilLib
+{
+    template <typename T>
+    Utf8String::ConversionError Utf8String::ToNumber(T& result)
+    {
+        std::from_chars_result status = std::from_chars(Value.begin().base(), Value.end().base(), result);
+
+        if (status.ptr == Value.end().base() && status.ec == std::errc())
+            return ConversionError::NoErrors;
+        else if (status.ec == std::errc::result_out_of_range)
+            return ConversionError::Overflow;
+        else //if (status.ec == std::errc::invalid_argument)
+            return ConversionError::NotAllowedChar;
+    }
 }
 
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
