@@ -53,6 +53,8 @@ namespace ViewLib
 
 		inline const sf::Texture& GetTexture();
 
+		inline sf::RenderTexture& GetRenderTexture();
+
 	public:
 		static const cuint_t DefaultCirclePointsCount = 30; 
 
@@ -85,6 +87,11 @@ namespace ViewLib
 	const sf::Texture& CanvasType::GetTexture()
 	{
 		return Texture.getTexture();
+	}
+	
+	sf::RenderTexture& CanvasType::GetRenderTexture()
+	{
+		return Texture;
 	}
 }
 		

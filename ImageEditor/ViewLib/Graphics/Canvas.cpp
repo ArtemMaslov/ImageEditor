@@ -21,6 +21,7 @@ CanvasType::CanvasType(const CanvasType& canvasType) :
 	Texture.create(Size.Hor, Size.Ver);
 	sf::Sprite sprite(canvasType.Texture.getTexture());
 	Texture.draw(sprite);
+	Texture.display();
 }
 
 const CanvasType& CanvasType::operator = (const CanvasType& canvasType)
@@ -28,6 +29,7 @@ const CanvasType& CanvasType::operator = (const CanvasType& canvasType)
 	Texture.create(Size.Hor, Size.Ver);
 	sf::Sprite sprite(canvasType.Texture.getTexture());
 	Texture.draw(sprite);
+	Texture.display();
 	return *this;
 }
 

@@ -8,10 +8,13 @@
 namespace ViewLib
 {
 	typedef unsigned char color_t;
-
+	static constexpr int MAX_COLOR_VALUE = 255;
+	
 	struct Color
 	{
-	public:
+	public: 
+		static constexpr size_t PrimariesCount = 3;
+		
 		enum Index
 		{
 			RedIndex   = 0,
@@ -25,6 +28,13 @@ namespace ViewLib
 
 		constexpr Color(const sf::Color& color) noexcept;
 
+		void SetColor(color_t r, color_t g, color_t b) noexcept;
+
+		operator sf::Color() const noexcept;
+
+		const Color& operator += (int delta) noexcept;
+		
+	public:
 		union
 		{
 			struct 
@@ -33,12 +43,8 @@ namespace ViewLib
 				color_t G;
 				color_t B;
 			};
-			color_t Primary[3];
+			color_t Primary[PrimariesCount];
 		};
-
-		void SetColor(color_t r, color_t g, color_t b) noexcept;
-
-		operator sf::Color() const noexcept;
 	};
 }
 
