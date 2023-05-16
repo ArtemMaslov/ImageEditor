@@ -1,5 +1,6 @@
 #include "Linux.h"
 
+#include <cstdio>
 #include <exception>
 
 #include <sys/wait.h>
@@ -47,6 +48,8 @@ ssize_t UtilLib::ExecProcessAndWait(cptr cmd, char* const buffer, size_t bufferS
         int status = execlp("/bin/bash", "/bin/bash", "-c", cmd, NULL);
         if (status == -1)
             throw std::exception();
+        
+        return 0;
     }
     else // Родитель
     {
@@ -54,10 +57,12 @@ ssize_t UtilLib::ExecProcessAndWait(cptr cmd, char* const buffer, size_t bufferS
         waitpid(id, &exitCode, 0);
         if (WEXITSTATUS(exitCode) == -1)
             throw std::exception();
-    }
 
-    ssize_t readCount = read(pipe.ReadDescriptor, buffer, bufferSize);
-    return readCount;
+        size_t readCount = 0;
+        if (WEXITSTATUS(exitCode) == 0)
+            readCount = read(pipe.ReadDescriptor, buffer, bufferSize);
+        return readCount;
+    }
 }
 
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
