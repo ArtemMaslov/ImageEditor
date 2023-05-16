@@ -122,7 +122,8 @@
 			"cint",
 			"cuint",
 			"Hashable",
-			"vect"
+			"vect",
+			"zenity"
 		]
 	}
 }

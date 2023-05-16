@@ -22,6 +22,13 @@ const Color& Color::operator += (int delta) noexcept
 	if (newB < 0)
 		newB = 0;
 
+	if (newR > MAX_COLOR_VALUE)
+		newR = MAX_COLOR_VALUE;
+	if (newG > MAX_COLOR_VALUE)
+		newG = MAX_COLOR_VALUE;
+	if (newB > MAX_COLOR_VALUE)
+		newB = MAX_COLOR_VALUE;
+
 	R = static_cast<color_t>(newR);
 	G = static_cast<color_t>(newG);
 	B = static_cast<color_t>(newB);

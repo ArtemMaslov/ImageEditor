@@ -27,6 +27,7 @@ BlurFilter::BlurFilter(uint_t defaultSquareSize) :
 void BrightnessFilter::Apply(ViewLib::CanvasType& canvas)
 {
     sf::Image image = canvas.GetTexture().copyToImage();
+    sf::Image newImage = image;
 
     ViewLib::SizePair imageSize = image.getSize();
     for (size_t y = 0; y < static_cast<size_t>(imageSize.Ver); y++)
@@ -35,13 +36,14 @@ void BrightnessFilter::Apply(ViewLib::CanvasType& canvas)
         {
             ViewLib::Color pixelColor = image.getPixel(x, y);
             pixelColor += Delta;
-            image.setPixel(x, y, pixelColor);
+            newImage.setPixel(x, y, pixelColor);
         }
     }
 
     sf::RenderTexture& texture = canvas.GetRenderTexture();
     sf::Texture newTexture;
-    newTexture.loadFromImage(image);
+    newTexture.loadFromImage(newImage);
+    newImage.saveToFile("text.png");
     sf::Sprite sprite(newTexture, sf::IntRect{0, 0, imageSize.Hor, imageSize.Ver});
     texture.draw(sprite);
     texture.display();

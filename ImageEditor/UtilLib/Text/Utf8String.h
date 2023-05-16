@@ -121,8 +121,11 @@ namespace UtilLib
         void Next();
 
     public:
+        using iterator_category = std::bidirectional_iterator_tag;
         using difference_type = std::make_signed_t<size_t>;
         using value_type = Utf8Char;
+        using pointer = Utf8Char*;
+        using reference = Utf8Char&;
 
     private:
         std::string::iterator CurrentSymbol;

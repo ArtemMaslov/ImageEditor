@@ -42,11 +42,13 @@ SizeType ViewGroup::OnMeasure(const MeasureStruct& meas)
 	{
 		
 	}
+
+	return SizeType{0, 0};
 }
 
 void ViewGroup::OnLayout(const CoordType& coord)
 {
-
+	
 }
 
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///

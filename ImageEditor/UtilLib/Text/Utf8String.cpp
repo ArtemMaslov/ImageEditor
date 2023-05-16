@@ -158,11 +158,6 @@ Utf8Iterator::Utf8Iterator(std::string::iterator begin, std::string::iterator en
 {
 }
 
-Utf8Iterator::Utf8Iterator()
-{
-    assert(!"Check state");
-}
-
 Utf8Char Utf8Iterator::operator *() const
 {
     uint32_t utf8Char = Decode();
@@ -219,8 +214,8 @@ void Utf8Iterator::Previous()
             return; // Нашли верную последовательность байт, образующих utf8 символ.
     }
 
-    // Поддерживается кодировка, содержащая только 4 байта.
-    throw std::exception();
+    fprintf(stderr, "Поддерживается кодировка, содержащая только 4 байта.\n");
+    std::abort();
 }
 
 void Utf8Iterator::Next()
@@ -228,8 +223,16 @@ void Utf8Iterator::Next()
     uint32_t result = 0;
     uint8_t trailingBytes = Utf8TrailingBytesCount[static_cast<uint8_t>(*CurrentSymbol)];
 
-    if (trailingBytes == Utf8TrailingBytesInvalid || CurrentSymbol + trailingBytes >= EndSymbol)
-        throw std::exception();
+    if (trailingBytes == Utf8TrailingBytesInvalid)
+    {
+        fprintf(stderr, "Текущий символ не является символом utf8.\n");
+        std::abort();
+    }
+    else if (CurrentSymbol + trailingBytes >= EndSymbol)
+    {
+        fprintf(stderr, "Нарушение кодировки utf8 символа. Символ вылезает за границы строки.\n");
+        std::abort();
+    }
 
     CurrentSymbol += 1 + trailingBytes;
 }
@@ -241,10 +244,15 @@ uint32_t Utf8Iterator::Decode() const
     uint32_t result = 0;
     uint8_t trailingBytes = Utf8TrailingBytesCount[static_cast<uint8_t>(*symStart)];
 
-    if (trailingBytes == Utf8TrailingBytesInvalid || symStart + trailingBytes >= EndSymbol)
+    if (trailingBytes == Utf8TrailingBytesInvalid)
     {
-        // Не верная последовательность символов.
-        throw std::exception();
+        fprintf(stderr, "Текущий символ не является символом utf8.\n");
+        std::abort();
+    }
+    else if (symStart + trailingBytes >= EndSymbol)
+    {
+        fprintf(stderr, "Нарушение кодировки utf8 символа. Символ вылезает за границы строки.\n");
+        std::abort();
     }
 
     // Декодируем utf8 символ.
@@ -278,7 +286,10 @@ uint32_t Utf8Iterator::Decode() const
 bool UtilLib::operator == (const Utf8Iterator& left, const Utf8Iterator& right)
 {
     if (left.EndSymbol != right.EndSymbol)
-        throw new std::exception();
+    {
+        fprintf(stderr, "Концы строк, которым принадлежат итераторы не совпадают. Возможно итераторы принадлежат разным строкам.\n");
+        std::abort();
+    }
 
     return left.CurrentSymbol == right.CurrentSymbol;
 }
@@ -286,7 +297,10 @@ bool UtilLib::operator == (const Utf8Iterator& left, const Utf8Iterator& right)
 std::strong_ordering UtilLib::operator <=> (const Utf8Iterator& left, const Utf8Iterator& right)
 {
     if (left.EndSymbol != right.EndSymbol)
-        throw new std::exception();
+    {
+        fprintf(stderr, "Концы строк, которым принадлежат итераторы не совпадают. Возможно итераторы принадлежат разным строкам.\n");
+        std::abort();
+    }
 
     return left.CurrentSymbol <=> right.CurrentSymbol;
 }

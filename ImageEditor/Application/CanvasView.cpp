@@ -98,7 +98,7 @@ bool CanvasView::OnMouseEvent(const MouseEvent &event)
 
 void CanvasView::LoadImage(ViewLib::Image &image)
 {
-	DrawingCanvas.DrawRectangle(CoordType{0, 0}, GetSize().Hor, GetSize().Ver, ColorBackground);
+    DrawingCanvas.DrawRectangle(CoordType{0, 0}, GetSize().Hor, GetSize().Ver, ColorBackground);
     DrawingCanvas.Render(image);
 }
 

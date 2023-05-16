@@ -39,6 +39,7 @@
 /ImageEditor/x86
 /ImageEditor/UtilLib/Errors
 /ImageEditor/UtilLib/Logs
+/ImageEditor/MemoryLeak
 
 *.bak
 

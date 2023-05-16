@@ -87,7 +87,7 @@ namespace ViewLib
 		bool  DrawBackground  = true;
 		Color ColorBackground = STD_COLOR_BACKGROUND;
 
-		bool  DrawBorder  = false;
+		bool  DrawBorder  = true;
 		Color ColorBorder = STD_COLOR_BORDER;
 
 		/// Вес компонента. Используется контейнерами для распределения места для компонентов.
