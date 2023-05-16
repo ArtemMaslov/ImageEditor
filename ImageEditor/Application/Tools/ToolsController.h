@@ -27,7 +27,6 @@ namespace ImageEditor
         constexpr const char* GetImagePath(ToolType toolType);
 
         ITool* ActiveTool;
-        IProperties* ActiveProperties;
     
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
 

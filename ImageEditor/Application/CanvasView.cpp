@@ -5,9 +5,10 @@ using namespace ViewLib;
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
 
-CanvasView::CanvasView(SimpleWindow &hostWindow, ImageEditor::ToolsController &toolsController) : View(&hostWindow),
-    ToolsController(toolsController),
-    DrawingCanvas()
+CanvasView::CanvasView(SimpleWindow &hostWindow, ImageEditor::ToolsController &toolsController) : 
+    View(&hostWindow),
+    DrawingCanvas(),
+    ToolsController(toolsController)
 {
     DrawBackground = false;
 }
@@ -22,13 +23,18 @@ SizeType CanvasView::OnMeasure(const MeasureStruct &meas)
     newSize.Hor = MeasureDirection<Direction::Horizontal>(meas);
     newSize.Ver = MeasureDirection<Direction::Vertical>(meas);
 
-    static bool first = false;
-    if (!first && newSize != GetSize())
+    static bool firstMeasure = true;
+    if (firstMeasure)
+    {
+        DrawingCanvas.SetSize(newSize);
+	    DrawingCanvas.DrawRectangle(CoordType{0, 0}, newSize.Hor, newSize.Ver, ColorBackground);
+        firstMeasure = false;
+    }
+    else if (newSize != GetSize())
     {
         CanvasType copy = DrawingCanvas;
         DrawingCanvas.SetSize(newSize);
         DrawingCanvas.Render(copy);
-        first = true;
     }
 
     SetSize(newSize);

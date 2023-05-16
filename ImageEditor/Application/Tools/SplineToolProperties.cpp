@@ -10,7 +10,7 @@ using ConversionError = UtilLib::Utf8String::ConversionError;
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
 
 SplineToolProperties::SplineToolProperties(ImageEditor::MainWindow& mainWindow, ImageEditor::SplineTool& tool, cptr toolName) :
-    IProperties(&mainWindow.Window),
+    IProperties(mainWindow.Window),
     MainWindow(mainWindow),
     Tool(tool),
 

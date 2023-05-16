@@ -2,7 +2,7 @@
 #include <UtilLib/FileSystem/Files.h>
 
 #include "MainMenu.h"
-
+#include "Filters/FiltersController.h"
 #include "MainWindow.h"
 
 using namespace ImageEditor;
@@ -16,19 +16,27 @@ MainMenu::MainMenu(ImageEditor::MainWindow& mainWindow) :
 
     ButtonOpenFile(&mainWindow.Window),
     ButtonSaveFile(&mainWindow.Window),
-    ButtonFilters(&mainWindow.Window)
+    ButtonBrightnessFilter(&mainWindow.Window),
+    ButtonBlurFilter(&mainWindow.Window)
 {
-    ButtonOpenFile.Text.Value = "Открыть файл";
-    ButtonSaveFile.Text.Value = "Сохранить файл";
-    ButtonFilters.Text.Value  = "Фильтры";
+    ButtonOpenFile.Text.Value         = "Открыть файл";
+    ButtonSaveFile.Text.Value         = "Сохранить файл";
+    ButtonBrightnessFilter.Text.Value = "Фильтр яркости";
+    ButtonBlurFilter.Text.Value       = "Фильтр размытия";
 
     Layout.AddChild(&ButtonOpenFile);
     Layout.AddChild(&ButtonSaveFile);
-    Layout.AddChild(&ButtonFilters);
+    Layout.AddChild(&ButtonBrightnessFilter);
+    Layout.AddChild(&ButtonBlurFilter);
 
     ButtonOpenFile.OnMouseLeftClick += std::bind(&MainMenu::ButtonOpenFileClicked, this);
     ButtonSaveFile.OnMouseLeftClick += std::bind(&MainMenu::ButtonSaveFileClicked, this);
-    ButtonFilters.OnMouseLeftClick  += std::bind(&MainMenu::ButtonFiltersClicked, this);
+
+    ButtonBrightnessFilter.OnMouseLeftClick += std::bind(&FiltersController::ActivateFilterDialog, 
+        &MainWindow.FiltersController, FilterType::Brightness);
+
+    ButtonBlurFilter.OnMouseLeftClick       += std::bind(&FiltersController::ActivateFilterDialog, 
+        &MainWindow.FiltersController, FilterType::Blur);
 }
 
 void MainMenu::ButtonOpenFileClicked()
@@ -37,9 +45,12 @@ void MainMenu::ButtonOpenFileClicked()
     char filePath[bufferSize] = "";
     UtilLib::OpenFileDialog(filePath, bufferSize);
     
-    ViewLib::Image image;
-    image.LoadFromFile(filePath);
-    MainWindow.CanvasView.LoadImage(image);
+    if (filePath[0] != '\0')
+    {
+        ViewLib::Image image;
+        image.LoadFromFile(filePath);
+        MainWindow.CanvasView.LoadImage(image);
+    }
 }
 
 void MainMenu::ButtonSaveFileClicked()
@@ -48,14 +59,12 @@ void MainMenu::ButtonSaveFileClicked()
     char filePath[bufferSize] = "";
     UtilLib::SaveFileDialog(filePath, bufferSize);
 
-    const sf::Texture& texture = MainWindow.CanvasView.GetTexture();
-    sf::Image image = texture.copyToImage();
-    image.saveToFile(filePath);
-}
-
-void MainMenu::ButtonFiltersClicked()
-{
-    
+    if (filePath[0] != '\0')
+    {
+        const sf::Texture& texture = MainWindow.CanvasView.GetTexture();
+        sf::Image image = texture.copyToImage();
+        image.saveToFile(filePath);
+    }
 }
 
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///

@@ -1,11 +1,12 @@
 #pragma once
 
 #include <ViewLib/View/EditText.h>
+#include <ViewLib/View/Button.h>
+#include <ViewLib/ViewGroup/LinearLayout.h>
 
-#include "../ColorPicker.h"
-
-#include "Tool.h"
 #include "../Properties/IProperties.h"
+#include "ButtonsDialog.h"
+#include "Filter.h"
 
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
@@ -14,27 +15,24 @@ namespace ImageEditor
 {
     class MainWindow;
 
-    class TextProperties : public IProperties
+    class BlurFilterProperties : public IProperties
     {
     public:
-        TextProperties(ImageEditor::MainWindow& mainWindow, ImageEditor::Text& tool);
+        BlurFilterProperties(ImageEditor::MainWindow& mainWindow, ImageEditor::BlurFilter& filter);
 
     private:
-        void StringChanged();
-
-        void FontSizeChanged();
+        void SquareSizeChanged();
 
     private:
         ImageEditor::MainWindow& MainWindow;
-        ImageEditor::Text& Tool;
+        ImageEditor::BlurFilter& Filter;
+        
+        ViewLib::TextView TextViewFilterName;
+        
+        ViewLib::TextView TextViewSquareSize;
+        ViewLib::EditText EditTextSquareSize;
 
-        ViewLib::TextView TextViewToolName;
-        ViewLib::TextView TextViewFontSize;
-        ViewLib::EditText EditTextFontSize;
-        ViewLib::TextView TextViewString;
-        ViewLib::EditText EditTextString;
-
-        ViewLib::ColorPicker ColorPicker;
+        ImageEditor::ButtonsDialog ButtonsDialog;
     };
 }
 

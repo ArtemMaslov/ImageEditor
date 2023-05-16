@@ -8,7 +8,7 @@ using namespace ImageEditor;
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
 
 BucketProperties::BucketProperties(ImageEditor::MainWindow& mainWindow, ImageEditor::Bucket& tool) :
-    IProperties(&mainWindow.Window),
+    IProperties(mainWindow.Window),
     MainWindow(mainWindow),
 
     Tool(tool),

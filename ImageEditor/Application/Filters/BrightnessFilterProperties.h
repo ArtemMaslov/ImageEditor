@@ -2,10 +2,9 @@
 
 #include <ViewLib/View/EditText.h>
 
-#include "../ColorPicker.h"
-
-#include "Tool.h"
 #include "../Properties/IProperties.h"
+#include "ButtonsDialog.h"
+#include "Filter.h"
 
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
@@ -14,27 +13,24 @@ namespace ImageEditor
 {
     class MainWindow;
 
-    class TextProperties : public IProperties
+    class BrightnessFilterProperties : public IProperties
     {
     public:
-        TextProperties(ImageEditor::MainWindow& mainWindow, ImageEditor::Text& tool);
+        BrightnessFilterProperties(ImageEditor::MainWindow& mainWindow, ImageEditor::BrightnessFilter& filter);
 
     private:
-        void StringChanged();
-
-        void FontSizeChanged();
+        void DeltaChanged();
 
     private:
         ImageEditor::MainWindow& MainWindow;
-        ImageEditor::Text& Tool;
+        ImageEditor::BrightnessFilter& Filter;
+        
+        ViewLib::TextView TextViewFilterName;
+        
+        ViewLib::TextView TextViewDelta;
+        ViewLib::EditText EditTextDelta;
 
-        ViewLib::TextView TextViewToolName;
-        ViewLib::TextView TextViewFontSize;
-        ViewLib::EditText EditTextFontSize;
-        ViewLib::TextView TextViewString;
-        ViewLib::EditText EditTextString;
-
-        ViewLib::ColorPicker ColorPicker;
+        ImageEditor::ButtonsDialog ButtonsDialog;
     };
 }
 

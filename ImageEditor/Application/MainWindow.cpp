@@ -11,6 +11,7 @@ MainWindow::MainWindow() :
 	Window(1000, 800, "Редактор изображений"),
 	PropertiesMenu(*this),
 	ToolsController(*this),
+	FiltersController(*this),
 	CanvasView(Window, ToolsController),
 	RootLayout(&Window, ViewLib::Direction::Vertical),
 	LayoutPropertiesCanvas(&Window, ViewLib::Direction::Horizontal),
@@ -37,7 +38,7 @@ MainWindow::MainWindow() :
 
 	ToolsController.ActivateNewTool(ToolType::Pencil);
 
-	// Уже измерили ActivateNewTool();
+	// Уже измерили и разместили компоненты в ActivateNewTool();
 }
 
 void MainWindow::Run()

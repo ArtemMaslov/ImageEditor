@@ -5,8 +5,8 @@ using namespace ImageEditor;
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
 
-IProperties::IProperties(ViewLib::SimpleWindow* const window) :
-    Layout(window, ViewLib::Direction::Vertical)
+IProperties::IProperties(ViewLib::SimpleWindow& window) :
+    Layout(&window, ViewLib::Direction::Vertical)
 {
 }
 

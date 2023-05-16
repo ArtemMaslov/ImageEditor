@@ -5,7 +5,7 @@ using namespace ImageEditor;
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
 
-SplineTool::SplineTool(size_t defaultRadius, const ViewLib::Color& defaultColor) :
+SplineTool::SplineTool(uint_t defaultRadius, const ViewLib::Color& defaultColor) :
     Radius(defaultRadius),
     Color(defaultColor)
 {
@@ -27,7 +27,7 @@ Rectangle::Rectangle(const ViewLib::SizeType& defaultSize, const ViewLib::Color&
 {
 }
 
-Circle::Circle(size_t defaultRadius, const ViewLib::Color& defaultColor) :
+Circle::Circle(uint_t defaultRadius, const ViewLib::Color& defaultColor) :
     Radius(defaultRadius),
     Color(defaultColor)
 {

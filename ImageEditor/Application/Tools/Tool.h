@@ -44,11 +44,11 @@ namespace ImageEditor
     class SplineTool : public ITool
     {
     public:
-        SplineTool(size_t defaultRadius, const ViewLib::Color& defaultColor);
+        SplineTool(uint_t defaultRadius, const ViewLib::Color& defaultColor);
 
         void Draw(ViewLib::CanvasType& canvas, ViewLib::CoordType& point) override;
 
-        size_t         Radius;
+        uint_t         Radius;
         ViewLib::Color Color;
     };
     
@@ -87,11 +87,11 @@ namespace ImageEditor
     class Circle : public ITool
     {
     public:
-        Circle(size_t defaultRadius, const ViewLib::Color& defaultColor);
+        Circle(uint_t defaultRadius, const ViewLib::Color& defaultColor);
 
         void Draw(ViewLib::CanvasType& canvas, ViewLib::CoordType& point) override;
 
-        size_t         Radius;
+        uint_t         Radius;
         ViewLib::Color Color;
     };
 }

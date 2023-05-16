@@ -20,8 +20,6 @@ namespace ImageEditor
         
         void ButtonSaveFileClicked();
 
-        void ButtonFiltersClicked();
-
     public:
         ViewLib::LinearLayout Layout;
 
@@ -30,7 +28,8 @@ namespace ImageEditor
 
         ViewLib::Button ButtonOpenFile;
         ViewLib::Button ButtonSaveFile;
-        ViewLib::Button ButtonFilters;
+        ViewLib::Button ButtonBrightnessFilter;
+        ViewLib::Button ButtonBlurFilter;
     };
 }
 

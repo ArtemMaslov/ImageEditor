@@ -10,7 +10,7 @@ using ConversionError = UtilLib::Utf8String::ConversionError;
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
 
 TextProperties::TextProperties(ImageEditor::MainWindow& mainWindow, ImageEditor::Text& tool) :
-    IProperties(&mainWindow.Window),
+    IProperties(mainWindow.Window),
     MainWindow(mainWindow),
 
     Tool(tool),

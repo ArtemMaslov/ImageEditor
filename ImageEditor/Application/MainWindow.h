@@ -2,18 +2,21 @@
 
 #include <ViewLib/SimpleWindow.h>
 
-#include "Tools/ToolsController.h"
 #include "CanvasView.h"
 #include "MainMenu.h"
 #include "Tools/ToolsMenu.h"
-#include "PropertiesMenu.h"
+#include "Properties/PropertiesMenu.h"
+
+#include "Tools/ToolsController.h"
+#include "Filters/FiltersController.h"
 
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
 
 namespace ImageEditor
 {
-	class ToolsController;
+	//class ToolsController;
+	//class FiltersController;
 
 	class MainWindow
 	{
@@ -28,6 +31,7 @@ namespace ImageEditor
 		ImageEditor::PropertiesMenu PropertiesMenu;
 
 		ImageEditor::ToolsController ToolsController;
+		ImageEditor::FiltersController FiltersController;
 		
 		ViewLib::CanvasView CanvasView;
 

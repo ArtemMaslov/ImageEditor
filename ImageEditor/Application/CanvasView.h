@@ -32,11 +32,12 @@ namespace ViewLib
 
         void DrawWithTool(CoordType& drawingPoint);
 
+    public:
+        CanvasType DrawingCanvas;
+        
     private:
         bool IsDrawing = false;
         ImageEditor::ToolsController& ToolsController;
-
-        CanvasType DrawingCanvas;
     };
 }
 

@@ -28,36 +28,37 @@ ToolsController::ToolsController(ImageEditor::MainWindow& mainWindow) :
 
 void ToolsController::ActivateNewTool(ToolType newTool)
 {
+    IProperties* newProperties = nullptr;
     switch (newTool)
     {
         case ToolType::Pencil:
-            ActiveTool       = &Pencil;
-            ActiveProperties = &PencilProperties;
+            ActiveTool    = &Pencil;
+            newProperties = &PencilProperties;
             break;
             
         case ToolType::Eraser:
-            ActiveTool       = &Eraser;
-            ActiveProperties = &EraserProperties;
+            ActiveTool    = &Eraser;
+            newProperties = &EraserProperties;
             break;
             
         case ToolType::Bucket:
-            ActiveTool       = &Bucket;
-            ActiveProperties = &BucketProperties;
+            ActiveTool    = &Bucket;
+            newProperties = &BucketProperties;
             break;
             
         case ToolType::Text:
-            ActiveTool       = &Text;
-            ActiveProperties = &TextProperties;
+            ActiveTool    = &Text;
+            newProperties = &TextProperties;
             break;
             
         case ToolType::Rectangle:
-            ActiveTool       = &Rectangle;
-            ActiveProperties = &RectangleProperties;
+            ActiveTool    = &Rectangle;
+            newProperties = &RectangleProperties;
             break;
             
         case ToolType::Circle:
-            ActiveTool       = &Circle;
-            ActiveProperties = &CircleProperties;
+            ActiveTool    = &Circle;
+            newProperties = &CircleProperties;
             break;
     
         default:
@@ -65,7 +66,7 @@ void ToolsController::ActivateNewTool(ToolType newTool)
             break;
     }
 
-    MainWindow.PropertiesMenu.InflateProperties();
+    MainWindow.PropertiesMenu.ChangeProperties(newProperties);
 
 	MainWindow.Window.MeasureChildren();
 	MainWindow.Window.LayoutChildren();

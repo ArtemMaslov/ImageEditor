@@ -11,7 +11,7 @@ static void RectangleSizeChanged(ViewLib::EditText& editText, ViewLib::dim_t& ou
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
 
 RectangleProperties::RectangleProperties(ImageEditor::MainWindow& mainWindow, ImageEditor::Rectangle& tool) :
-    IProperties(&mainWindow.Window),
+    IProperties(mainWindow.Window),
     MainWindow(mainWindow),
 
     Tool(tool),

@@ -2,7 +2,7 @@
 
 #include "PropertiesMenu.h"
 
-#include "MainWindow.h"
+#include "../MainWindow.h"
 
 using namespace ImageEditor;
 
@@ -15,11 +15,21 @@ PropertiesMenu::PropertiesMenu(ImageEditor::MainWindow& mainWindow) :
 {
 }
 
-void PropertiesMenu::InflateProperties()
+void PropertiesMenu::ChangeProperties(IProperties* const newProperties)
 {
+    assert(newProperties);
+
     Layout.RemoveAllChildren();
-    if (MainWindow.ToolsController.ActiveProperties)
-        MainWindow.ToolsController.ActiveProperties->InflateProperties(Layout);
+    newProperties->InflateProperties(Layout);
+
+    PreviousProperties = CurrentProperties;
+    CurrentProperties  = newProperties;
+}
+
+void PropertiesMenu::RestorePreviousProperties()
+{
+    CurrentProperties = nullptr;
+    ChangeProperties(PreviousProperties);
 }
 
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///

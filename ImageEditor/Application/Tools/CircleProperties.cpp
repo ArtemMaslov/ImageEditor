@@ -9,7 +9,7 @@ using ConversionError = UtilLib::Utf8String::ConversionError;
 ///***///***///---\\\***\\\***\\\___///***___***\\\___///***///***///---\\\***\\\***///
 
 CircleProperties::CircleProperties(ImageEditor::MainWindow& mainWindow, ImageEditor::Circle& tool) :
-    IProperties(&mainWindow.Window),
+    IProperties(mainWindow.Window),
     MainWindow(mainWindow),
 
     Tool(tool),
