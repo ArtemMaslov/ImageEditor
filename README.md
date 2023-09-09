@@ -19,7 +19,7 @@ cd ./ImageEditor
 ```
 code ImageEditor.code-workspace
 ```
-3. Сборка проекта осуществляется с помощью `makefile` (используемая версия `GNU Make 4.3`). Перед сборкой необходимо установить библиотеку [SFML](https://www.sfml-dev.org/index.php) (используемая версия 2.5.1) и . Компилятор `GNU g++ 11.3.0`, стандарт С++20:
+3. Сборка проекта осуществляется с помощью `makefile` (используемая версия `GNU Make 4.3`). Перед сборкой необходимо установить библиотеку [SFML](https://www.sfml-dev.org/index.php) (используемая версия 2.5.1) и изменить значение переменной `SFML_PATH` в `./ImageEditor/makefile_settings`. Компилятор `GNU g++ 11.3.0`, стандарт С++20:
 ```
 cd ./ImageEditor
 make
@@ -29,3 +29,8 @@ make
 cd ../x64/Debug
 ./ImageEditor
 ```
+
+<p align="center">
+    <img src="Images/application-interface.png" width="500"/>
+    <p align="center">Внешний вид интерфейса</p>
+</p>

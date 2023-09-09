@@ -41,6 +41,8 @@
 /ImageEditor/UtilLib/Logs
 /ImageEditor/MemoryLeak
 
+/SFML-2.5.1*
+
 *.bak
 
 /Презентация
